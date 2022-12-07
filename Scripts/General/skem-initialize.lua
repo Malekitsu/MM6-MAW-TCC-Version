@@ -6,7 +6,7 @@ local ini = require "inifile"
 local UPDATE_INI = false
 
 local PRESETS = {
-	["ImprovedQuestItems"] = true,
+	["ImprovedQuestItems"] = false,
 	["RandomizeMapClusters"] = false,
 	["AdaptiveMonsterMode"] = "disabled",
 	["ResistancesDisplayMode"] = "default",

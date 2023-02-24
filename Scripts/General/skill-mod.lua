@@ -92,20 +92,17 @@ local meleeRecoveryCap = 10
 
 local attributeBreakpoints =
 {
+400,
+350,
 300,
-280,
-260,
-240,
-220,
+275,
+250,
+225,
 200,
 180,
-170,
 160,
-150,
 140,
-130,
 120,
-110,
 100,
 90,
 80,
@@ -121,23 +118,25 @@ local attributeBreakpoints =
 17,
 15,
 13,
+11,
+9,
+-1000,
 }
+
+
 local attributeEffects =
 {
+80,
+70,
 60,
-56,
-52,
-48,
-44,
+55,
+50,
+45,
 40,
 36,
-34,
 32,
-30,
 28,
-26,
 24,
-22,
 20,
 18,
 16,
@@ -153,6 +152,9 @@ local attributeEffects =
 2,
 1,
 0,
+-1,
+-2,
+-3,
 }
 --
 
@@ -226,7 +228,7 @@ local newWeaponSkillRecoveryBonuses =
 	[const.Skills.Dagger]	= {0, 0, 1, },
 	[const.Skills.Axe]		= {0, 2, 2, },
 	[const.Skills.Spear]	= {0, 0, 0, },
-	[const.Skills.Bow]		= {0, 0, 0, },
+	[const.Skills.Bow]		= {2, 2, 2, },
 	[const.Skills.Mace]		= {0, 0, 0, },
 	[const.Skills.Blaster]	= {0, 0, 0, },
 }
@@ -252,7 +254,7 @@ local newWeaponSkillDamageBonuses =
 	[const.Skills.Dagger]	= {0, 0, 0, },
 	[const.Skills.Axe]		= {0, 1, 2, },
 	[const.Skills.Spear]	= {0, 1, 2, },
-	[const.Skills.Bow]		= {1, 2, 4, },
+	[const.Skills.Bow]		= {1, 2, 2, },
 	[const.Skills.Mace]		= {0, 1, 2, },
 	[const.Skills.Blaster]	= {0, 0, 0, },
 	
@@ -387,7 +389,7 @@ local classRangedWeaponSkillDamageBonus =
 	[const.Class.WarriorMage] = 2,
 	[const.Class.Knight] = 0,
 	[const.Class.Cavalier] = 0,
-	[const.Class.Champion] = 2,
+	[const.Class.Champion] = 1,
 }
 
 -- plate cover chances by rank
@@ -2876,7 +2878,7 @@ function events.ModifyItemDamage(t)
         elseif m == const.Expert then
             masteryBonus = 2
         elseif m == const.Master then
-            masteryBonus = 4
+            masteryBonus = 2
         end
 				-- increase s based on ArmsMaster, WeaponsMaster, or Squire professions of hired NPCs
 		local hiredNPC = Game.Party.HiredNPC

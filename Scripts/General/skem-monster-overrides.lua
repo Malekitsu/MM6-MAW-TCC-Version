@@ -98,7 +98,7 @@ local spellTxtIds = { }
 
 local monsterInfos =
 {
-	--Maddening Eye
+	--[[Maddening Eye
 	[12] = {["SpellChance"] = 2, ["Spell"] = "Dispell Magic", ["SpellSkill"] = JoinSkill(10, const.Novice), },
 	--Priest of Baa
 	[16] = 
@@ -224,6 +224,7 @@ local monsterInfos =
 	[40] = {["PhysResistance"] = 10,},
 	[41] = {["PhysResistance"] = 15,},
 	[42] = {["PhysResistance"] = 20,},
+	]]
 }
 
 -- mergeTables function, from https://stackoverflow.com/a/29133654

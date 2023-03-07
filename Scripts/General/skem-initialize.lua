@@ -6,7 +6,7 @@ local ini = require "inifile"
 local UPDATE_INI = false
 
 local PRESETS = {
-	["ImprovedQuestItems"] = false,
+	["ImprovedQuestItems"] = true,
 	["RandomizeMapClusters"] = false,
 	["AdaptiveMonsterMode"] = "disabled",
 	["ResistancesDisplayMode"] = "default",
@@ -17,6 +17,9 @@ local PRESETS = {
 	["GlobalMapResetDays"] = "default",
 	["DifficultyModifier"] = 1.00,
 	HomingProjectiles = true,
+	["KnightAsBloodKnight"] = false,
+	["ArcherAsAssassin"] = false,
+	["PaladinAsBerseker"] = false,
 }
 
 SETTINGS = { }

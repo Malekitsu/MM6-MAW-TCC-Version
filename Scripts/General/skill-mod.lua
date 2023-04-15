@@ -2024,17 +2024,16 @@ local function BBHook(amountReg)
 		
 		enduranceBonus=pl:GetEndurance()/500
 		if s == 0 then	
-		if SETTINGS["StatsRework"]==true then
-		d[amountReg] = d[amountReg] * (1+enduranceBonus)
-		end
+			if SETTINGS["StatsRework"]==true then
+			d[amountReg] = d[amountReg] * (1+enduranceBonus)
+			end
 		return end
-		d[amountReg] = amount + math.round(amount * 0.01 * s)		
+		d[amountReg] = amount + s^2		
 		if SETTINGS["StatsRework"]==true then
 		d[amountReg] = d[amountReg] * (1+enduranceBonus)
 		end
 	end
 end
-
 
 -- GetFullHP()
 mem.autohook(0x482089, BBHook("eax"))
@@ -2044,6 +2043,7 @@ mem.autohook(0x47FD71, BBHook("edi"))
 mem.autohook(0x484FF3, BBHook("edi"))
 -- HP regeneration
 mem.autohook(0x487F05, BBHook("edi"))
+mem.autohook(0x487D8A, BBHook("edi"))
 
 -- allow to hold sword in left hand at novice rank
 mem.asmpatch(0x0045A4AB, "test   BYTE [ebp+0x61],0xFF", 0x4)

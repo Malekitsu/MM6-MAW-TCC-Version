@@ -413,12 +413,12 @@ function calculateMonsterDamageMultipliers(monsterArray, easy_flag)
 	tier = string.sub(pic, -1)
 	
 	divisor = 20
-	constant = 1.75
+	constant = 1
 
 	if (easy_flag == true)
 	then
 		divisor = 25
-		constant = 1.25
+		constant = 0.75
 	end
 	
 	if (tier == "A")
@@ -877,7 +877,7 @@ function events.LoadMap()
 				Map.Monsters[i].FullHitPoints = Map.Monsters[i].FullHitPoints*2
 				Map.Monsters[i].HitPoints = Map.Monsters[i].HitPoints*2			
 			-- bonus damage
-				DamageMultiplier=Map.Monsters[i].Level/20+1.75
+				DamageMultiplier=Map.Monsters[i].Level/20+1
 				--attack 1
 				a=Map.Monsters[i].Attack1.DamageAdd * DamageMultiplier
 				Map.Monsters[i].Attack1.DamageAdd = Map.Monsters[i].Attack1.DamageAdd * DamageMultiplier

@@ -872,7 +872,7 @@ function events.LoadMap()
 		do
 			
 			if not (Map.Monsters[i].Name == Game.MonstersTxt[Map.Monsters[i].Id].Name) or not (Map.Monsters[i].FullHitPoints == Game.MonstersTxt[Map.Monsters[i].Id].FullHitPoints) then
-				if not (Map.Monsters[i].Ally == 1) or not (Map.Monsters[i].Ally == 2) then
+				if  Map.Monsters[i].Ally ==0 then
 				Map.Monsters[i].Ally = 1
 				Map.Monsters[i].FullHitPoints = Map.Monsters[i].FullHitPoints*2
 				Map.Monsters[i].HitPoints = Map.Monsters[i].HitPoints*2			

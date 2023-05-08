@@ -77,7 +77,7 @@ function events.ItemGenerated(t)
 		end
 		
 		--chance for ancient item, only if bonus 2 is spawned
-		if t.Item.Bonus2~=0 or Game.Map.Name=="zddb10.blv" then 
+		if t.Item.Bonus2~=0 then 
 			ancient=math.random(1,50)
 			if ancient<=t.Strength-3 or Game.Map.Name=="zddb10.blv" then
 				t.Item.ExtraData=math.random(364,560)
@@ -88,7 +88,7 @@ function events.ItemGenerated(t)
 		
 		--primordial item
 		primordial=math.random(1,200)
-		if primordial<=t.Strength-4 or Game.Map.Name=="sci-fi.blv" then
+		if primordial<=t.Strength-4 then
 			t.Item.ExtraData=math.random(547,560)
 			t.Item.Bonus=math.random(1,14)
 			t.Item.BonusStrength=40
@@ -215,22 +215,11 @@ itemStatName = {"Might", "Intellect", "Personality", "Endurance", "Accuracy", "S
 --change tooltip
 function events.GameInitialized2()
 	itemName = {}
-	
-	Game.ItemsTxt[580].NotIdentifiedName="Reality Scroll"
-	Game.ItemsTxt[580].Notes="The Reality Scroll is an ancient artifact of immense power, said to possess the ability to restore reality itself.\nAccording to the legend, it went long gone, stolen by Kreegans. The scroll must be brought to a special fountain created by the gods, which possesses the power to purify anything that touches its waters.\nTo activate the scroll's power, one must immerse it in the fountain's waters and recite the ancient incantation inscribed upon it. However, be warned that the ritual might summon the force of dark.\nOnly those who can pass a series of trials testing their strength, cunning, and purity of heart will be granted access to strongest relic. With the power of the Reality Scroll, one can hope to manipulate the fabric of reality and save the world from chaos."
-	Game.ItemsTxt[579].NotIdentifiedName="Celestial Amulet"
-	Game.ItemsTxt[579].Notes="The celestial dragon amulet is a breathtaking artifact that glimmers with otherworldly radiance. Fashioned from an otherworldly metal that is said to have been forged in the heart of a star, the amulet is adorned with intricate engravings of celestial dragons in mid-flight, their wings outstretched as if to take to the heavens themselves. Wearing this amulet is said to imbue the wielder with immense power, allowing them to channel the energies of the cosmos and bend them to their will. But the amulet's true strength lies in its ability to protect its allies. With a mere thought, the wearer can summon a shield of celestial energy that envelops their comrades, shielding them from harm and granting them the strength to fight on. It is said that only the most noble and righteous of warriors are able to wield the celestial dragon amulet, and that those who do so are blessed with the favor of the Gods themselves. ( +50 to all seven stats, protection to Death and Eradicate)"
-	
-	--FINAL AWARD
-	Game.AwardsTxt[61]="Completed MAW in Nightmare Mode"
-	Game.ItemsTxt[546].Notes="Congratulation, you were able to clear MAW at its highest difficulty!!!"
-	Game.ScrollTxt[546]="To enter the Hall of Fame write me on Discord at Malekith#5670 and send me the save file to verify your run.\nDevs are proud of you" 	
-		
-	for i = 1, 578 do
+
+		for i = 1, 578 do
 	  itemName[i] = Game.ItemsTxt[i].Name
 	end
-	itemName[580] = "Reality Scroll"
-	itemName[579] = "Celestial Dragon Amulet"
+
 	--fix long tooltips causing crash 
 	Game.SpcItemsTxt[40].BonusStat= "Drain target Life and Increased Weapon speed."
 	Game.SpcItemsTxt[41].BonusStat= " +1 to All Statistics."

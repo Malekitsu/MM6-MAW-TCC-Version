@@ -379,6 +379,12 @@ function calculateMonsterHealth(monsterArray)
 	level = monsterArray["Level"]
 	oldHealth = monsterArray["FullHitPoints"]
 	healthMod = 1
+	
+	--HEALTH FIX FOR ITEM/STATS REWORK
+	if SETTINGS["ItemRework"]==true and SETTINGS["StatsRework"]==true then
+	healthMod = 1 * (1+level/200)
+	end
+	-----------------------
 	lookupID = monsterArray["Id"]
 	pic = Game.MonstersTxt[lookupID]["Picture"]
 	tier = string.sub(pic, -1)
@@ -457,7 +463,13 @@ end
 function applyMonsterDamageMultipliers(monsterArray, damageMultiplier, rankMultiplier, easy_flag)
 	genericForm = Game.MonstersTxt[monsterArray["Id"]]
 	dampener = 1
-
+	
+	--FIX FOR ITEM/STATS REWORK
+	if SETTINGS["ItemRework"]==true and SETTINGS["StatsRework"]==true then
+	damageMultiplier = damageMultiplier*((monsterArray.Level^1.5-1)/1000+1)
+	end
+	-----------------------------
+	
 	if (monsterArray.Level > 60)
 	then
 		local levelmod = monsterArray.Level - 60

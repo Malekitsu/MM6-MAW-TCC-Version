@@ -62,7 +62,7 @@ function events.ItemGenerated(t)
 			t.Item.ExtraData = math.random(14 * extraBonusPowerLow[t.Strength]-13, 14 * extraBonusPowerHigh[t.Strength])
 			--make it standard bonus if no standard bonus
 			if t.Item.Bonus==0 then
-				t.Item.Bonus=t.Item.ExtraData%14
+				t.Item.Bonus=t.Item.ExtraData%14+1
 				t.Item.BonusStrength=math.ceil(t.Item.ExtraData/14)
 				t.Item.ExtraData=0
 			end
@@ -77,7 +77,7 @@ function events.ItemGenerated(t)
 		end
 		
 		--chance for ancient item, only if bonus 2 is spawned
-		if t.Item.Bonus2~=0 then 
+		if t.Item.Bonus2~=0 or Game.Map.Name=="zddb10.blv" then 
 			ancient=math.random(1,50)
 			if ancient<=t.Strength-3 or Game.Map.Name=="zddb10.blv" then
 				t.Item.ExtraData=math.random(364,560)
@@ -88,7 +88,7 @@ function events.ItemGenerated(t)
 		
 		--primordial item
 		primordial=math.random(1,200)
-		if primordial<=t.Strength-4 then
+		if primordial<=t.Strength-4 or Game.Map.Name=="sci-fi.blv" then
 			t.Item.ExtraData=math.random(547,560)
 			t.Item.Bonus=math.random(1,14)
 			t.Item.BonusStrength=40
@@ -151,6 +151,49 @@ end
 for i = 415, 420 do
 	Game.ItemsTxt[i].Mod2=Game.ItemsTxt[i].Mod2^1.4
 end
+------------
+--Change item drop%
+------------
+Game.ItemsTxt[4].ChanceByLevel[3]=0
+Game.ItemsTxt[11].ChanceByLevel[4]=0
+Game.ItemsTxt[14].ChanceByLevel[3]=0
+Game.ItemsTxt[14].ChanceByLevel[4]=2
+Game.ItemsTxt[37].ChanceByLevel[2]=0
+Game.ItemsTxt[37].ChanceByLevel[3]=2
+Game.ItemsTxt[40].ChanceByLevel[3]=2
+Game.ItemsTxt[40].ChanceByLevel[4]=10
+
+--armors fix
+Game.ItemsTxt[71].Mod2=2
+Game.ItemsTxt[72].Mod2=7
+Game.ItemsTxt[73].Mod2=16
+Game.ItemsTxt[74].Mod2=28
+Game.ItemsTxt[75].Mod2=44
+
+Game.ItemsTxt[76].Mod2=8
+Game.ItemsTxt[77].Mod2=24
+Game.ItemsTxt[78].Mod2=60
+
+Game.ItemsTxt[79].Mod2=3
+Game.ItemsTxt[80].Mod2=5
+Game.ItemsTxt[81].Mod2=9
+Game.ItemsTxt[82].Mod2=18
+Game.ItemsTxt[83].Mod2=33
+Game.ItemsTxt[84].Mod2=2
+Game.ItemsTxt[85].Mod2=5
+Game.ItemsTxt[86].Mod2=9
+Game.ItemsTxt[87].Mod2=18
+Game.ItemsTxt[88].Mod2=33
+
+Game.ItemsTxt[406].Mod2=46
+Game.ItemsTxt[407].Mod2=64
+Game.ItemsTxt[408].Mod2=38
+
+Game.ItemsTxt[421].Mod2=60
+Game.ItemsTxt[422].Mod2=77
+Game.ItemsTxt[423].Mod2=61
+
+
 
 ------------
 --tooltips
@@ -215,11 +258,22 @@ itemStatName = {"Might", "Intellect", "Personality", "Endurance", "Accuracy", "S
 --change tooltip
 function events.GameInitialized2()
 	itemName = {}
-
-		for i = 1, 578 do
+	
+	Game.ItemsTxt[580].NotIdentifiedName="Reality Scroll"
+	Game.ItemsTxt[580].Notes="The Reality Scroll is an ancient artifact of immense power, said to possess the ability to restore reality itself.\nAccording to the legend, it went long gone, stolen by Kreegans. The scroll must be brought to a special fountain created by the gods, which possesses the power to purify anything that touches its waters.\nTo activate the scroll's power, one must immerse it in the fountain's waters and recite the ancient incantation inscribed upon it. However, be warned that the ritual might summon the force of dark.\nOnly those who can pass a series of trials testing their strength, cunning, and purity of heart will be granted access to strongest relic. With the power of the Reality Scroll, one can hope to manipulate the fabric of reality and save the world from chaos."
+	Game.ItemsTxt[579].NotIdentifiedName="Celestial Amulet"
+	Game.ItemsTxt[579].Notes="The celestial dragon amulet is a breathtaking artifact that glimmers with otherworldly radiance. Fashioned from an otherworldly metal that is said to have been forged in the heart of a star, the amulet is adorned with intricate engravings of celestial dragons in mid-flight, their wings outstretched as if to take to the heavens themselves. Wearing this amulet is said to imbue the wielder with immense power, allowing them to channel the energies of the cosmos and bend them to their will. But the amulet's true strength lies in its ability to protect its allies. With a mere thought, the wearer can summon a shield of celestial energy that envelops their comrades, shielding them from harm and granting them the strength to fight on. It is said that only the most noble and righteous of warriors are able to wield the celestial dragon amulet, and that those who do so are blessed with the favor of the Gods themselves. ( +50 to all seven stats, protection to Death and Eradicate)"
+	
+	--FINAL AWARD
+	Game.AwardsTxt[61]="Completed MAW in Nightmare Mode"
+	Game.ItemsTxt[546].Notes="Congratulation, you were able to clear MAW at its highest difficulty!!!"
+	Game.ScrollTxt[546]="To enter the Hall of Fame write me on Discord at Malekith#5670 and send me the save file to verify your run.\nDevs are proud of you" 	
+		
+	for i = 1, 578 do
 	  itemName[i] = Game.ItemsTxt[i].Name
 	end
-
+	itemName[580] = "Reality Scroll"
+	itemName[579] = "Celestial Dragon Amulet"
 	--fix long tooltips causing crash 
 	Game.SpcItemsTxt[40].BonusStat= "Drain target Life and Increased Weapon speed."
 	Game.SpcItemsTxt[41].BonusStat= " +1 to All Statistics."
@@ -481,7 +535,6 @@ function events.DoBadThingToPlayer(t)
 		end
 	end
 end
-
 
 
 end

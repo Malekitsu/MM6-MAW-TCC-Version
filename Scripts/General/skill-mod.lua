@@ -2880,9 +2880,16 @@ if SETTINGS["StatsRework"]==true then
 		--luck/accuracy bonus
 			luck=data.Player:GetLuck()
 			accuracy=data.Player:GetAccuracy()
-			critDamage=accuracy/250
-			critChance=5+luck/10
-			roll=math.random(1, 100)
+				if (data.Object==nil or data.Object.Spell==100) then
+				critDamage=accuracy/250
+				else
+				personality=data.Player:GetPersonality()
+				intellect=data.Player:GetIntellect()
+				bonus=math.max(personality,intellect)
+				critDamage=bonus/500
+				end
+			critChance=50+luck
+			roll=math.random(1, 1000)
 			if roll <= critChance then
 				t.Result=t.Result*(1.5+critDamage)
 				crit2=true

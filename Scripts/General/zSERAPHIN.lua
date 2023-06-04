@@ -1,34 +1,5 @@
-local Rebalance
-Rebalance = 1
-Rebalanze = 1
-if SETTINGS["ImbaSubClasses"]==false then
-Rebalance = 0.95
-Rebalanze = 0
-end
-
-
 SERAPHIN=SETTINGS["ClericAsSeraphin"]
 if SERAPHIN==true then
-
---light magic will increase damage done melee
-function events.CalcDamageToMonster(t)
-	local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.HighPriest or data.Player.Class==const.Class.Priest or data.Player.Class==const.Class.Cleric) and t.DamageKind==0 and data.Object==nil then
-		mastery=data.Player.Skills[const.Skills.Light]
-		rankBonus=1
-		if mastery>=64 then 
-		mastery=mastery-64
-		rankBonus=1.5
-		end
-		if mastery>=64 then
-		mastery=mastery-64
-		rankBonus=2
-		end
-		t.Result=t.Result+2*mastery*rankBonus
-	end
-end
-
-
 
 --body magic will increase healing done on attack
 function events.CalcDamageToMonster(t)
@@ -39,11 +10,11 @@ function events.CalcDamageToMonster(t)
 		rankBonus=1
 		if body>=64 then 
 		body=body-64
-		rankBonus=1
+		rankBonus=1.5
 		end
 		if body>=64 then
 		body=body-64
-		rankBonus=1
+		rankBonus=2
 		end
 		--get mastery
 		mastery=data.Player.Skills[const.Skills.Thievery]
@@ -53,6 +24,13 @@ function events.CalcDamageToMonster(t)
 		if mastery>=64 then
 		mastery=mastery-64
 		end
+		rankBonusMH=1
+if data.Player.Class==const.Class.Priest then
+		rankBonusMH=2
+end
+if data.Player.Class==const.Class.HighPriest then
+		rankBonusMH=3
+end
 				--get light
 		light=data.Player.Skills[const.Skills.Light]
 		rankBonus=1
@@ -113,7 +91,7 @@ function events.CalcDamageToMonster(t)
 		min_index = indexof({a, b, c, d}, min_value)
 		min_index = min_index - 1
 		--Calculate heal value and apply
-		healValue=2*body*rankBonus+mastery*3+math.max(4*spirit-2*light-mastery*2+body, 0)
+		healValue=body*rankBonus+mastery*rankBonusMH+math.max(4*spirit-2*light-mastery*2+body, 0)
 		evt[min_index].Add("HP",healValue)		
 		--bug fix
 		if Party[min_index].HP>0 then
@@ -133,11 +111,11 @@ function events.CalcDamageToMonster(t)
 		rankBonus=1
 		if light>=64 then 
 		light=light-64
-		rankBonus=1
+		rankBonus=1.5
 		end
 		if light>=64 then
 		light=light-64
-		rankBonus=1
+		rankBonus=2
 		end
 		--get mastery
 		mastery=data.Player.Skills[const.Skills.Thievery]
@@ -147,7 +125,16 @@ function events.CalcDamageToMonster(t)
 		if mastery>=64 then
 		mastery=mastery-64
 		end
-		t.Result=t.Result+2*light*rankBonus+(mastery*4)
+		rankBonusMD=1
+if data.Player.Class==const.Class.Priest then
+		rankBonusMD=2
+end
+if data.Player.Class==const.Class.HighPriest then
+		rankBonusMD=4
+end
+
+
+		t.Result=t.Result+light*rankBonus+(mastery*rankBonusMD)
 		end
 end
 
@@ -257,8 +244,8 @@ end
 ---deactivate offhand weapon
 function events.CalcDamageToMonster(t)
 	 data=WhoHitMonster()
-	 ind=data.Player:GetIndex()
-		if data.Player and (data.Player.Class==const.Class.HighPriest or data.Player.Class==const.Class.Priest or data.Player.Class==const.Class.Cleric) and data.Player.ItemExtraHand >= 1 and data.Player.ItemExtraHand <= 14 or (data.Player.ItemExtraHand ==403 or data.Player.ItemExtraHand >= 415) then
+	 item=data.Player:GetActiveItem(0)
+		if data.Player and (data.Player.Class==const.Class.HighPriest or data.Player.Class==const.Class.Priest or data.Player.Class==const.Class.Cleric) and (item.Number >= 1 and item.Number <= 14) or (item.Number ==403 or item.Number >= 415) then
 			t.Result=0
 			Message("Seraphin aren't able to dual wield")
 		end
@@ -277,14 +264,14 @@ Game.ClassKinds.StartingSkills[1][const.Skills.Thievery] = 1
 Game.ClassKinds.StartingSkills[1][const.Skills.Dark] = 0
 
     Game.Classes.HPFactor[const.Class.Cleric] = 3
-	Game.Classes.SPFactor[const.Class.Cleric] = 1+Rebalanze
+	Game.Classes.SPFactor[const.Class.Cleric] = 1
 	Game.Classes.HPFactor[const.Class.Priest] = 4
-	Game.Classes.SPFactor[const.Class.Priest] = 2+Rebalanze
+	Game.Classes.SPFactor[const.Class.Priest] = 2
 	Game.Classes.HPFactor[const.Class.HighPriest] = 5
-	Game.Classes.SPFactor[const.Class.HighPriest] = 3+Rebalanze
+	Game.Classes.SPFactor[const.Class.HighPriest] = 3
 --LORE BONUS Seraphin are blessed with divine powers, giving him +20 starting hp and +10 mana and light skill
-	Game.ClassKinds.HPBase[1] = 20 + 20 * Rebalanze
-	Game.ClassKinds.SPBase[1] = 10 + 10 * Rebalanze
+	Game.ClassKinds.HPBase[1] = 30
+	Game.ClassKinds.SPBase[1] = 15
 
 Game.ClassNames[const.Class.Cleric]="Seraphin"
 Game.ClassNames[const.Class.Priest]="Angel"

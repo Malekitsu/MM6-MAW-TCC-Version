@@ -284,7 +284,7 @@ local spellCosts =
 	["Dark Containment"] = {["Master"] = 100},
 	["Poison Spray"] = {["Master"] = 13 + SC},
 	["Sparks"] = {["Master"] = 13 + SC},
-	["Shrap Metal"] = {["Normal"] = 10, ["Expert"] = 30, ["Master"] = 50 + SC^0.65},
+	["Shrapmetal"] = {["Normal"] = 10, ["Expert"] = 30, ["Master"] = 50 + SC^0.65},
 	["Mass Distortion"] = {["Master"] = 30 + SC * 3},
 	["Toxic Cloud"] = {["Normal"] = 4, ["Expert"] = 12, ["Master"] = 30},
 	
@@ -550,10 +550,55 @@ function events.CalcSpellDamage(t)
 		-- custom spell power
 	
 		local spellPower = spellPowers[t.Spell][t.Mastery]
-		t.Result = randomSpellPower(spellPower, t.Skill)
-		
-	end
-	
+		--ring and artifact nerf
+		ringNerf=1
+		artifactNerf=1
+		data=WhoHitMonster()
+		if data.Player then
+			for it in data.Player:EnumActiveItems() do
+				if it.Bonus2 == 34 and t.Spell>22 and t.Spell<=33 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 33 and t.Spell>44 and t.Spell<=55 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 32 and t.Spell>55 and t.Spell<=66 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 31 and t.Spell>77 and t.Spell<=88 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 30 and t.Spell>0 and t.Spell<=11 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 29 and t.Spell>33 and t.Spell<=44 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 28 and t.Spell>88 and t.Spell<=99 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 27 and t.Spell>66 and t.Spell<=77 then		
+					ringNerf=0.8
+				end
+				if it.Bonus2 == 26 and t.Spell>11 and t.Spell<=22 then		
+					ringNerf=0.8
+				end
+				if it.Number==413 and t.Spell>44 and t.Spell<=77 then
+					artifactNerf=0.8
+				end
+				if it.Number==414 and t.Spell>0 and t.Spell<=44 then
+					artifactNerf=0.8
+				end
+				if it.Number==413 and t.Spell>44 and t.Spell<=77 then
+					artifactNerf=0.8
+				end
+				if it.Number==412 and t.Spell>77 and t.Spell<=99 then
+					artifactNerf=0.8
+				end
+			end
+		end
+		t.Result = randomSpellPower(spellPower, t.Skill*ringNerf*artifactNerf)	
+	end	
 end
 
 -- spell buffs
@@ -871,10 +916,11 @@ local function modifiedMonsterCalculateDamage(d, def, monsterPointer, attackType
 	local monsterIndex, monster = GetMonster(d.edi)
 if ((ADAPTIVE == "default") or (ADAPTIVE == "disabled")) then 
 	Mlevel = Game.MonstersTxt[monster.Id].Level
+		modi = 1
 else
 Xlevel = Game.MonstersTxt[monster.Id].Level
 Mlevel = monsterArray["Level"]
-Mlevel = monsterArray["Level"] * math.max(1, Mlevel/Xlevel)
+modi =  (1+Mlevel)/(1+Xlevel)
 end
 	-- execute original code
 
@@ -898,9 +944,9 @@ end
 
 	local spellSkill, spellMastery = SplitSkill(monster.SpellSkill)
 	if SETTINGS["ItemRework"]==true and SETTINGS["StatsRework"]==true then
-	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/30)+0.75) * (Mlevel^1.5/1000+1)
+	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/20)+0.75) * (Mlevel^1.6/1000+1) * modi
 	else
-	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/30)+0.75)
+	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/20)+0.75) * modi
 	end
 	
 	return damage
@@ -1231,11 +1277,22 @@ function events.HealingSpellPower(t)
 		else
 			t.Result = Randoms(entry.variableMin, entry.variableMax, s) + math.random(entry.fixedMin or 0, entry.fixedMax or 0)	
 		end
+		
 		if SETTINGS["StatsRework"]==true then
 		personality=t.Caster:GetPersonality()
 		intellect=t.Caster:GetIntellect()
 		bonus=math.max(personality,intellect)
-		t.Result = t.Result*(1+bonus/500)
+			if t.Spell ~= 54 then
+			t.Result = t.Result*(1+bonus/500)
+			end
+		luck=t.Caster:GetLuck()
+		roll=math.random(1,1000)
+			if roll<=luck+50 then
+				if t.Spell ~= 54 then
+				t.Result=t.Result*(1.5+bonus/500)
+				end
+			Game.ShowStatusText("Critical Heal")
+			end
 		end
 	end
 end
@@ -1342,3 +1399,17 @@ function events.CalcSpellDamage(t)
 		t.Result = t.HP*0.15+t.HP*t.Skill*0.01
 	end
 end
+
+--RING OF FIRE FIX, damage will be reduced at distance 256 increasingly up to 512 (10% damage min)
+
+function events.CalcDamageToMonster(t)
+	local data = WhoHitMonster()
+	if data.Player and data.Spell==const.Spells.RingOfFire then
+	distance=((t.Monster.X-Party.X)^2+(t.Monster.Y-Party.Y)^2)^0.5
+		if distance>256 then
+			t.Result=t.Result*math.max(1-((distance-281.6)/256),0.1)
+		end
+	end
+end
+
+

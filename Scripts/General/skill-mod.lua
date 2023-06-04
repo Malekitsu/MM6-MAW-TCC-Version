@@ -303,18 +303,18 @@ local newWeaponSkillResistanceBonuses =
 local newArmorSkillACBonuses =
 {
 	[const.Skills.Shield]	= {1, 2, 3, },
-	[const.Skills.Leather]	= {3, 3, 3, },
-	[const.Skills.Chain]	= {3, 3, 3, },
-	[const.Skills.Plate]	= {3, 3, 3, },
+	[const.Skills.Leather]	= {1, 2, 3, },
+	[const.Skills.Chain]	= {2, 3, 5, },
+	[const.Skills.Plate]	= {3, 5, 7, },
 }
 
 -- armor skill resistance bonuses (by rank)
 
 local newArmorSkillResistanceBonuses =
 {
-	[const.Skills.Leather]	= {3, 3, 6, },
-	[const.Skills.Chain]	= {3, 3, 3, },
-	[const.Skills.Plate]	= {0, 0, 0, },
+	[const.Skills.Leather]	= {2, 4, 6, },
+	[const.Skills.Chain]	= {2, 3, 4, },
+	[const.Skills.Plate]	= {0, 1, 2, },
 }
 
 -- armor skill damage reduction exponential multiplier (by rank)
@@ -322,8 +322,8 @@ local newArmorSkillResistanceBonuses =
 local newArmorSkillDamageMultiplier =
 {
 	[const.Skills.Leather]	= {1.00, 1.00, 1.00, },
-	[const.Skills.Chain]	= {1.00, 0.99, 0.99, },
-	[const.Skills.Plate]	= {1.00, 0.98, 0.98, },
+	[const.Skills.Chain]	= {1.00, 1.00, 1.00, },
+	[const.Skills.Plate]	= {1.00, 1.00, 1.00, },
 }
 
 -- local recoveryBonusByMastery = {[const.Novice] = 4, [const.Expert] = 5, [const.Master] = 6, }
@@ -1816,15 +1816,16 @@ formatSkillRankNumber(Game.SkillRecoveryTimes[const.Skills.Shield + 1] * (rank =
 	
 	Game.SkillDescriptions[const.Skills.Plate] = Game.SkillDescriptions[const.Skills.Plate] ..
 		string.format(
-			"\n\nPlate armor is the strongest one.\n\nPlate wearer is percieved as a true battle hero who can learn swift maneuvering on a battlefield shielding the rest of the team from melee attackers.\n\nBonus increment per skill level and recovery penalty and cover chance\n------------------------------------------------------------\n          AC | recovery penalty | cover chance |"
+			"\n\nPlate armor is the strongest one.\n\nPlate wearer is percieved as a true battle hero who can learn swift maneuvering on a battlefield shielding the rest of the team from melee attackers.\n\nBonus increment per skill level and recovery penalty and cover chance\n------------------------------------------------------------\n          AC | rec. pen. | cover chance | resistance"
 		)
 	for rank = const.Novice, const.Master do
 		SkillDescriptionsRanks[rank][const.Skills.Plate] =
 			string.format(
-				" %s |                 %s |              %s |",
+				" %s |                 %s |              %s |        %s",
 				formatSkillRankNumber(newArmorSkillACBonuses[const.Skills.Plate][rank], 77),
-				formatSkillRankNumber(Game.SkillRecoveryTimes[const.Skills.Plate + 1] * (rank == const.Novice and 1 or (rank == const.Expert and 0.5 or 0)), 209),
-				formatSkillRankNumber(plateCoverChances[rank] * 100, 316)
+				formatSkillRankNumber(Game.SkillRecoveryTimes[const.Skills.Plate + 1] * (rank == const.Novice and 1 or (rank == const.Expert and 0.5 or 0)), 156),
+				formatSkillRankNumber(plateCoverChances[rank] * 100, 263),
+				formatSkillRankNumber(newArmorSkillResistanceBonuses[const.Skills.Plate][rank], 316)
 			)
 	end
 	
@@ -2040,7 +2041,9 @@ local function BBHook(amountReg)
 			d[amountReg] = d[amountReg] * (1+enduranceBonus)
 			end
 		return end
-		d[amountReg] = amount + s^2		
+		if m > 2 then
+		d[amountReg] = amount + s^2 - s * 6
+			end
 		if SETTINGS["StatsRework"]==true then
 		d[amountReg] = d[amountReg] * (1+enduranceBonus)
 		end

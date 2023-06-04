@@ -1,6 +1,6 @@
 SERAPHIN=SETTINGS["PaladinAsSeraphin"]
 BERSERKER=SETTINGS["PaladinAsBerserker"]
-if BERSERKER~=true then
+if BERSERKER==false then
 if SERAPHIN==true then
 
 --body magic will increase healing done on attack

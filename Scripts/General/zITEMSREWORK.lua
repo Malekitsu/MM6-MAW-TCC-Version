@@ -83,7 +83,7 @@ function events.ItemGenerated(t)
 		end
 		
 		--chance for ancient item, only if bonus 2 is spawned
-		if t.Item.Bonus2~=0 or Game.Map.Name=="zddb10.blv" then 
+		if t.Item.Bonus2~=0 then 
 			ancient=math.random(1,50)
 			if ancient<=t.Strength-3 or Game.Map.Name=="zddb10.blv" then
 				t.Item.Charges=math.random(364,560)
@@ -151,9 +151,13 @@ function events.CalcStatBonusByItems(t)
 		if it.Charges ~= nil then
 			stat=it.Charges%14
 			bonus=math.ceil(it.Charges/14)
-				if t.Stat==stat then
-				t.Result = t.Result + bonus
-				end				
+			if SETTINGS["ReworkedMagicDamageCalculation"]==true then
+				if t.Stat==stat and stat<10 then
+					t.Result = t.Result + bonus
+				end
+			elseif t.Stat==stat then
+					t.Result = t.Result + bonus
+			end
 		end
 	end
 end
@@ -319,7 +323,7 @@ enchantbonusdamage[46] = 4
 
 function events.CalcDamageToMonster(t)
     local data = WhoHitMonster()
-    if data.Player and t.DamageKind ~= 0 and data.Object == nil then
+    if data and data.Player and t.DamageKind ~= 0 and data.Object == nil then
 	n=1
 	bonusDamage2=1
         for i = 0,1 do
@@ -350,7 +354,7 @@ end
 
 function events.CalcDamageToMonster(t)
     local data = WhoHitMonster()
-    if data.Player and t.DamageKind ~= 0 and data.Object~=nil then
+    if data and data.Player and t.DamageKind ~= 0 and data.Object~=nil then
 			if data.Object.Spell==100 then
 			it=data.Player:GetActiveItem(2)
 			-- calculation
@@ -402,6 +406,9 @@ data=WhoHitMonster()
 	end
 end
 
+
+
+
 ---------------------
 --multiple enchant tooltip
 ---------------------
@@ -417,30 +424,68 @@ mem.autohook(0x41CE00, function(d)
 end)
 
 
---STAT NAMES for custom tooltip
-itemStatName = {"Might", "Intellect", "Personality", "Endurance", "Accuracy", "Speed", "Luck", "Hit Points", "Spell Points", "Armor Class", "Fire Resistance", "Elec Resistance", "Cold Resistance", "Poison Resistance"}
-
 
 
 --change tooltip
 function events.GameInitialized2()
+	
+	--STAT NAMES for custom tooltip
+	itemStatName = {}
+	--colours
+
+	itemStatName[1]=StrColor(255,0,0,"Might")
+	itemStatName[2]=StrColor(255,128,0,"Intellect")
+	itemStatName[3]=StrColor(0,127,255,"Personality")
+	itemStatName[4]=StrColor(0,255,0,"Endurance")
+	itemStatName[5]=StrColor(255,255,0,"Accuracy")
+	itemStatName[6]=StrColor(127,0,255,"Speed")
+	itemStatName[7]=StrColor(255,255,255,"Luck")
+	itemStatName[8]=StrColor(0,255,0,"Hit Points")
+	itemStatName[9]=StrColor(0,100,255,"Spell Points")
+	itemStatName[10]=StrColor(230,204,128,"Armor Class")
+	itemStatName[11]=StrColor(255,100,100,"Fire Resistance")
+	itemStatName[12]=StrColor(255,255,100,"Elec Resistance")
+	itemStatName[13]=StrColor(153,255,255,"Cold Resistance")
+	itemStatName[14]=StrColor(0,153,0,"Poison Resistance")
+	
+	--menu stats
+	if SETTINGS["colouredStats"]==true then
+		Game.GlobalTxt[144]=StrColor(255,0,0,"Might")
+		Game.GlobalTxt[116]=StrColor(255,128,0,"Intellect")
+		Game.GlobalTxt[163]=StrColor(0,127,255,"Personality")
+		Game.GlobalTxt[75]=StrColor(0,255,0,"Endurance")
+		Game.GlobalTxt[1]=StrColor(255,255,0,"Accuracy")
+		Game.GlobalTxt[211]=StrColor(127,0,255,"Speed")
+		Game.GlobalTxt[136]=StrColor(255,255,255,"Luck")
+		Game.GlobalTxt[108]=StrColor(0,255,0,"Hit Points")
+		Game.GlobalTxt[212]=StrColor(0,100,255,"Spell Points")
+		Game.GlobalTxt[12]=StrColor(230,204,128,"Armor Class")
+		Game.GlobalTxt[87]=StrColor(255,100,100,"Fire")
+		Game.GlobalTxt[71]=StrColor(255,255,100,"Elec")
+		Game.GlobalTxt[43]=StrColor(153,255,255,"Cold")
+		Game.GlobalTxt[166]=StrColor(0,153,0,"Poison")
+	end
+	
+	
 	itemName = {}
 	itemDesc = {}
-	Game.ItemsTxt[580].NotIdentifiedName="Reality Scroll"
-	Game.ItemsTxt[580].Notes="The Reality Scroll is an ancient artifact of immense power, said to possess the ability to restore reality itself.\nAccording to the legend, it went long gone, stolen by Kreegans. The scroll must be brought to a special fountain created by the gods, which possesses the power to purify anything that touches its waters.\nTo activate the scroll's power, one must immerse it in the fountain's waters and recite the ancient incantation inscribed upon it. However, be warned that the ritual might summon the force of dark.\nOnly those who can pass a series of trials testing their strength, cunning, and purity of heart will be granted access to strongest relic. With the power of the Reality Scroll, one can hope to manipulate the fabric of reality and save the world from chaos."
-	Game.ItemsTxt[579].NotIdentifiedName="Celestial Amulet"
-	Game.ItemsTxt[579].Notes="The celestial dragon amulet is a breathtaking artifact that glimmers with otherworldly radiance. Fashioned from an otherworldly metal that is said to have been forged in the heart of a star, the amulet is adorned with intricate engravings of celestial dragons in mid-flight, their wings outstretched as if to take to the heavens themselves. Wearing this amulet is said to imbue the wielder with immense power, allowing them to channel the energies of the cosmos and bend them to their will. But the amulet's true strength lies in its ability to protect its allies. With a mere thought, the wearer can summon a shield of celestial energy that envelops their comrades, shielding them from harm and granting them the strength to fight on. It is said that only the most noble and righteous of warriors are able to wield the celestial dragon amulet, and that those who do so are blessed with the favor of the Gods themselves. ( +50 to all seven stats, protection to Death and Eradicate)"
+	enchantAdd = {}
+	enchantAdd2 = {}
 	
-	for i = 1, 578 do
+	for i = 1, 580 do
 	  itemName[i] = Game.ItemsTxt[i].Name
 	end
-	
-	for i = 94, 99 do
+	for i = 1, 134 do
 	  itemDesc[i] = Game.ItemsTxt[i].Notes
 	end
-	
-	itemName[580] = "Reality Scroll"
-	itemName[579] = "Celestial Dragon Amulet"
+	--copy enchants
+	for i=0,13 do
+		enchantAdd[i]=Game.StdItemsTxt[i].NameAdd
+	end
+	for i=0, 58 do
+		enchantAdd2[i]=Game.SpcItemsTxt[i].NameAdd
+	end
+
 	--fix long tooltips causing crash 
 
 	Game.SpcItemsTxt[40].BonusStat= "Drain target Life and Increased Weapon speed."
@@ -457,15 +502,15 @@ function events.GameInitialized2()
 	Game.SpcItemsTxt[20].BonusStat="Poison and weakness Immunity"
 	Game.SpcItemsTxt[21].BonusStat="Sleep and Unconscious Immunity"
 	Game.SpcItemsTxt[22].BonusStat="Stone and premature ageing Immunity"
-	Game.SpcItemsTxt[24].BonusStat="Death and eradication Immunity, +5 Levels"
+	Game.SpcItemsTxt[24].BonusStat="Death and erad. Immunity, +5 Levels"
 end
 
 if SETTINGS["255MOD"]~=true then
 	function events.ShowItemTooltip(item)
 		if item.Item.Bonus~=0 and item.Item.Bonus2~=0 and item.Item.Charges~=0 then
-		Game.StdItemsTxt[item.Item.Bonus-1].BonusStat=string.format("%s\n%s +%s\n%s",Game.SpcItemsTxt[item.Item.Bonus2-1].BonusStat,itemStatName[item.Item.Charges%14+1],math.ceil(item.Item.Charges/14), itemStatName[item.Item.Bonus])
+		Game.StdItemsTxt[item.Item.Bonus-1].BonusStat=string.format("\n%s +%s\n%s",itemStatName[item.Item.Charges%14+1],math.ceil(item.Item.Charges/14), itemStatName[item.Item.Bonus])
 			else if item.Item.Bonus~=0 and item.Item.Bonus2~=0 and item.Item.Charges==0 then
-				Game.StdItemsTxt[item.Item.Bonus-1].BonusStat=string.format("%s\n%s",Game.SpcItemsTxt[item.Item.Bonus2-1].BonusStat, itemStatName[item.Item.Bonus])
+				Game.StdItemsTxt[item.Item.Bonus-1].BonusStat=string.format("\n%s", itemStatName[item.Item.Bonus])
 				else if item.Item.Bonus~=0 and item.Item.Charges~=0 and item.Item.Bonus2==0 then
 					Game.StdItemsTxt[item.Item.Bonus-1].BonusStat=string.format("\n%s +%s\n%s",itemStatName[item.Item.Charges%14+1],math.ceil(item.Item.Charges/14), itemStatName[item.Item.Bonus])
 					else if item.Item.Bonus~=0 and item.Item.Charges==0 and item.Item.Bonus2==0 then
@@ -475,8 +520,19 @@ if SETTINGS["255MOD"]~=true then
 			end
 		end
 		
-	--Change item name
-	--Change item name
+	--Change item name and colour
+	--number of bonuses
+	bonuses=0
+	if item.Item.Bonus~=0 then
+	bonuses=bonuses+1
+	end
+	if item.Item.Charges~=0 then
+	bonuses=bonuses+1
+	end
+	if item.Item.Bonus2~=0 then
+	bonuses=bonuses+1
+	end
+	
 	ancient=0
 	bonus=item.Item.BonusStrength
 	if item.Item.Bonus==8 or item.Item.Bonus==9 then
@@ -486,17 +542,50 @@ if SETTINGS["255MOD"]~=true then
 	if item.Item.Charges%14==7 or item.Item.Charges%14==8 then
 		extrabonus=extrabonus/2
 	end
-		
-	if (bonus>25 and extrabonus>25) or bonus+extrabonus>50 then
-		Game.ItemsTxt[item.Item.Number].Name=string.format("%s %s","Ancient", itemName[item.Item.Number])
-		else 
-		Game.ItemsTxt[item.Item.Number].Name=string.format("%s", itemName[item.Item.Number])
+	if item.Item.Number<135 then	
+		if (bonus>25 and extrabonus>25) or (bonus+extrabonus>50 and item.Item.Bonus~=0) then
+			Game.ItemsTxt[item.Item.Number].Name=StrColor(255,128,0,string.format("%s %s","Ancient", itemName[item.Item.Number]))	
+			Game.StdItemsTxt[item.Item.Bonus-1].NameAdd = StrColor(255,128,0,enchantAdd2[item.Item.Bonus2-1])
+			
+			elseif bonuses==3 then
+				Game.ItemsTxt[item.Item.Number].Name=StrColor(163,53,238,string.format("%s", itemName[item.Item.Number]))
+				Game.StdItemsTxt[item.Item.Bonus-1].NameAdd = StrColor(163,53,238,enchantAdd2[item.Item.Bonus2-1])
+			elseif bonuses==2 then
+				Game.ItemsTxt[item.Item.Number].Name = StrColor(0,150,255,string.format("%s", itemName[item.Item.Number]))
+				if item.Item.Bonus2==0 then
+					Game.StdItemsTxt[item.Item.Bonus-1].NameAdd = StrColor(0,150,255,enchantAdd[item.Item.Bonus-1])
+					elseif item.Item.Bonus2>0 then
+						Game.StdItemsTxt[item.Item.Bonus-1].NameAdd = StrColor(0,150,255,enchantAdd2[item.Item.Bonus2-1])
+				end
+			elseif bonuses==1 then
+				Game.ItemsTxt[item.Item.Number].Name=StrColor(30,255,0,string.format("%s", itemName[item.Item.Number]))
+				if item.Item.Bonus>0 then
+					Game.StdItemsTxt[item.Item.Bonus-1].NameAdd=StrColor(30,255,0,enchantAdd[item.Item.Bonus-1])
+					elseif item.Item.Bonus2>0 then
+						Game.SpcItemsTxt[item.Item.Bonus2-1].NameAdd = StrColor(30,255,0,enchantAdd2[item.Item.Bonus2-1])
+				end
+			elseif bonuses==0 then
+				Game.ItemsTxt[item.Item.Number].Name=StrColor(255,255,255,string.format("%s", itemName[item.Item.Number]))
+		end
+	end
+	--name colour for artifacts/relics
+	if item.Item.Number>399 and item.Item.Number<430 then
+		Game.ItemsTxt[item.Item.Number].Name=StrColor(230,204,128,string.format("%s", itemName[item.Item.Number]))
 	end
 
 	if bonus==40 and extrabonus==40 then
-		Game.ItemsTxt[item.Item.Number].Name=string.format("%s %s","Primordial", itemName[item.Item.Number])
+		Game.ItemsTxt[item.Item.Number].Name=StrColor(255,0,0,string.format("%s %s","Primordial", itemName[item.Item.Number]))
+		if item.Item.Bonus>0 then
+			Game.StdItemsTxt[item.Item.Bonus-1].NameAdd=StrColor(255,0,0,enchantAdd[item.Item.Bonus-1])
 		end
-
+		end
+		
+		--Bonus2
+		if item.Item.Bonus2>0 and item.Item.Bonus>0 then
+			Game.ItemsTxt[item.Item.Number].Notes=string.format("%s\n\n%s",StrColor(255,255,153,Game.SpcItemsTxt[item.Item.Bonus2-1].BonusStat),itemDesc[item.Item.Number])
+			else
+			Game.ItemsTxt[item.Item.Number].Notes=itemDesc[item.Item.Number]
+		end
 	--Crowns and HATS
 		if item.Item.ExtraData~=nil then
 			if item.Item.Number>=94 and item.Item.Number<=99 then
@@ -507,12 +596,21 @@ if SETTINGS["255MOD"]~=true then
 						statbonus="Healing"
 						else statbonus="Damage"
 					end
-				end			
-				Game.ItemsTxt[item.Item.Number].Notes=string.format("Increases spell %s by: %s%s\n\n%s",statbonus,item.Item.ExtraData%1000,"%",itemDesc[item.Item.Number])
-				else
+				end		
+				if item.Item.Bonus2==0 then
+				Game.ItemsTxt[item.Item.Number].Notes=string.format("%s %s %s %s%s\n\n%s",StrColor(255,255,153,"Increases spell"),StrColor(255,255,153,statbonus),StrColor(255,255,153,"by:"),StrColor(255,255,153,item.Item.ExtraData%1000),StrColor(255,255,153,"%"),itemDesc[item.Item.Number])
+				elseif item.Item.Bonus2>0 then
+					Game.ItemsTxt[item.Item.Number].Notes=string.format("%s\n%s %s %s %s%s\n\n%s",StrColor(255,255,153,Game.SpcItemsTxt[item.Item.Bonus2-1].BonusStat),StrColor(255,255,153,"Increases spell"),StrColor(255,255,153,statbonus),StrColor(255,255,153,"by:"),StrColor(255,255,153,item.Item.ExtraData%1000),StrColor(255,255,153,"%"),itemDesc[item.Item.Number])
+				end				
+			elseif item.Item.Bonus2>0 and item.Item.Bonus>0 then
+				Game.ItemsTxt[item.Item.Number].Notes=string.format("%s\n\n%s",StrColor(255,255,153,Game.SpcItemsTxt[item.Item.Bonus2-1].BonusStat),itemDesc[item.Item.Number])
+			else
 				Game.ItemsTxt[item.Item.Number].Notes=itemDesc[item.Item.Number]
 			end
 		end
+		
+
+		
 	end
 end
 -----------------------------
@@ -771,7 +869,7 @@ end
 --carnage fix
 function events.CalcDamageToMonster(t)
     local data = WhoHitMonster()
-	if data.Player and data.Object ~= nil then
+	if data and data.Player and data.Object ~= nil then
 		if data.Object.Item.Bonus2==3 then
 			t.Result=t.Result/2
 		end

@@ -6,7 +6,6 @@ local ini = require "inifile"
 local UPDATE_INI = false
 
 local PRESETS = {
-	["ImprovedQuestItems"] = true,
 	["RandomizeMapClusters"] = false,
 	["AdaptiveMonsterMode"] = "disabled",
 	["ResistancesDisplayMode"] = "default",
@@ -21,19 +20,22 @@ local PRESETS = {
 	["KnightAsGreyKnight"] = false,
 	["ArcherAsAssassin"] = false,
 	["ArcherAsAshikari"] = false,
-	["PaladinAsBerseker"] = false,
-	["SorcererAsNecromancer"] = false,
+	["PaladinAsBerserker"] = false,
 	["PaladinAsSeraphim"] = false,
-	["ImbaSubClasses"] = false,
+	["SorcererAsNecromancer"] = false,
 	["SorcererAsShadow"] = false,
 	["DruidAsHerbalist"] = false,
 	["DruidAsShaman"] = false,
+	["Mastery"] = false,
 	["EqualizedMode"] = false,
 	["ItemRework"] = true,
 	["StatsRework"] = true,
 	["ShowDamageTaken"] = false,
 	["StatusRework"] = true,
-	["ReworkedMagicDamageCalculation"] = true
+	["ReworkedMagicDamageCalculation"] = true,
+	["PowerCureOverflow"] = false,
+	["ShowTrainerLocations"] = true,
+	["colouredStats"] = false,
 }
 
 SETTINGS = { }

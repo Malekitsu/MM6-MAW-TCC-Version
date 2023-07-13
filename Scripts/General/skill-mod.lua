@@ -13,6 +13,46 @@ skem-spell-overrides.lua
 meditation-sp-regen.lua
 
 ]]
+
+----------------------------------------------------------------------------------------------------
+-- Chiyolate Tooltips
+----------------------------------------------------------------------------------------------------
+if SETTINGS["ShowTrainerLocations"]==true then
+	function events.GameInitialized2()
+	Game.SkillDescriptions[0]="A staff is a two-handed pole equally good on offense and defense.  Expert ranking in the staff will increase your armor class and master ranking will allow you to occasionally stun your opponents. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Misty Islands, 2000 Gold\nMaster : Silver Cove, 5000 Gold (Level 8)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[1]="The sword skill covers most types of blades longer than a knife.  Expert swordsmen gain a quicker attack while master swordsmen may use any one-handed sword in their left hand and another weapon in their right. \n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 2000 Gold\nMaster : Blackshire, 10000 Gold (Level 12, Cavalier)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[2]="While daggers don't do the kind of damage that a sword or an axe can deliver, they are very quick'sometimes letting you get two attacks for every one of your slower opponents'.  Expert dagger fighters can wield a dagger in their left hand while using another weapon in their right.  Master dagger fighters have a chance of doing a triple damage attack.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 2000 Gold\nMaster : Frozen Highlands, 5000 Gold (Level 8, Speed 40)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[3]="While rather slow on the attack, axes do a lot of damage when they hit.  Expert axe fighters gain a little more speed on their attacks while master axe fighters can deliver extra damage.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Mire of the Damned, 4000 Gold (Level 6)\nMaster : Mire of the Damned, 30000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[4]="Spear covers all kinds of pole weapons with blades attached to the business end.  Spears are versatile and can be used one or two handed (they work better with two hands).  Expert ranking in the spear will increase your armor class and master ranking will boost damage. \n\n--------------------Trainer locations--------------------\nExpert : Misty Islands / Silver Cove, 4000 Gold (Level 6)\nMaster : Mire of the Damned, 25000 Gold (Level 12, Cavalier)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[5]="Bow skill covers both bow and crossbow usage.  Expert archers gain a speed increase with their weapon, while master archers can fire two arrows with every attack.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Frozen Highland, 2000 Gold\nMaster : Kriegspire, 0 Gold (Level 8, Battle Mage)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[6]="Mace skill covers all kinds of blunt trauma weapons ranging from batons to flails.  Expert mace swingers do extra damage with their weapons while master ranking gives a chance to stun opponents. \n\n--------------------Trainer locations--------------------\nExpert : Mire of the Damned / Frozen Highlands, 3000 Gold (Level 6)\nMaster : Blackshire, 15000 Gold (Level 12, Might 40)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[7]="A weapon from before the Silence, their making has long since been lost.  Expert and Master Blasters gain double and triple accuracy with these awesome weapons.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Eel Infested Waters, 2000 Gold\nMaster : Paradise Valley, 5000 Gold   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[8]="Shield skill directly improves a character's armor class while a shield is employed.  Expert and master ranking in the shield increase this defensive bonus. \n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 2000 Gold\nMaster : Blackshire, 5000 Gold (Level 10)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[9]="Leather armor is the lightest armor a character can wear.  While leather provides less protection than chain or plate armor, it also slows your character down the least.  Leather armor skill increases the protection offered by leather armor.  As with all armors, Expert and master ranking both reduce the amount the armor slows you down.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Misty Islands, 1000 Gold\nMaster : Frozen Highlands, 3000 Gold (Level 10)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[10]="Chain armor is the medium armor type.  It provides more protection than leather and less than plate, but it also slows your character down more than leather.  Chain armor skill increases the protection offered by chain armor.  As with all armors, Expert and master ranking both reduce the amount the armor slows you down.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Bootleg Bay, 1000 Gold\nMaster : Mire of the Damned, 0 Gold (Level 10, Crusader)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[11]="Plate armor is the heaviest armor type.  It provides the most protection, but it slows your character down more than leather or chain.  Plate armor skill increases the protection offered by plate armor.  As with all armors, Expert and master ranking both reduce the amount the armor slows you down.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 1000 Gold\nMaster : Free Haven, 0 Gold (Hero)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[12]="Fire magic is a good source of offensive spells and includes spells having to do with speed.  Expert and master ranking permit access to greater versions of fire spells. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Free Haven, 1000 Gold\nMaster : Misty Islands, 4000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[13]="Air magic tends to be defensive and informational in nature and includes spells having to do with flight.  Expert and master ranking permit access to greater versions of air spells. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal, 1000 Gold\nMaster : Misty Islands, 4000 Gold (Arch Mage)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[14]="Water magic is equally defensive and offensive and concentrates on spells that move or change things.  Expert and master ranking permit access to greater versions of water spells. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Free Haven, 1000 Gold\nMaster : Misty Islands, 4000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[15]="Earth magic is defensive and includes spells that protect, bind, and strengthen.  Expert and master ranking permit access to greater versions of earth spells. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal /  Free Haven, 1000 Gold\nMaster : Silver Cove, 4000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[16]="Spirit magic concentrates on spells involving life and death.  Included are spells to raise the dead, spells that affect the Undead, and spells that influence aging.  Expert and master ranking permit access to greater versions of spirit spells.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Free Haven, 1000 Gold\nMaster : Castle Ironfist, 0 Gold (High Priest)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[17]="Mind magic tends to be offensive and informational in nature.  Charm, fear, and telekinesis are all examples of mind magic.  Expert and master ranking permit access to greater versions of mind magic.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Free Haven, 1000 Gold\nMaster : Silver Cove, 4000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[18]="Body magic is concerned with spells of healing and enhancement.  Spells to heal, wound, and cure disease and poison are all part of body magic.  Expert and master ranking permit access to greater versions of body magic.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Free Haven, 1000 Gold\nMaster : Silver Cove, 4000 Gold (Level 12)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[19]="Light magic spells represent some of the strongest spells in Enroth.  Usable only by Clerics and Sorcerers, light magic cannot be chosen before creating your characters; rather, light magic must be learned and mastered during your travels.\n\n--------------------Trainer locations--------------------\nExpert : Silver Cove / Kriegspire, 2000 Gold\nMaster : Eel Infested Waters, 0 Gold (Saintly Reputation)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[20]="Dark magic spells are the strongest spells in Enroth.  While casting spells of darkness can have spectacular results, dark spells sometimes come with unwanted side '  Dark magic cannot be chosen before creating your characters, and is restricted to Clerics and Sorcerers.\n\n--------------------Trainer locations--------------------\nExpert : Frozen Highlands / Blackshire, 2000 Gold\nMaster : Paradise Valley, 0 Gold (Notorious Reputation)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[21]="The identify skill will automatically identify an item if your character's skill level is high enough when you right click on an item.  Certain items require your character to be an expert or master in this skill to properly identify them. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Castle Ironfist, 2000 Gold\nMaster : Free Haven, 2500 Gold (Level 7, Intellect 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[22]="Merchant skill helps adjust prices in your favor, whether you are buying or selling.\n\n--------------------Trainer locations--------------------\nExpert : Free Haven / Mire of the Damned, 2000 Gold\nMaster : Silver Cove, 4000 Gold (Level 7, Personality 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[23]="Repair skill allows your characters to repair broken equipment.  Higher skill level allows you to repair better items and expert and master skill rankings allow you to repair complex items and artifacts.  The skill will work automatically when you right click on a broken item in your inventory. \n\n--------------------Trainer locations--------------------\nExpert : Misty Islands / Silver Cove, 500 Gold\nMaster : Frozen Highlands, 2500 Gold (Level 7, Accuracy 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[24]="Bodybuilding skill adds hit points directly to your character's hit point totals.  Multiply the skill in bodybuilding by the character's base class bonus (4 for knights, 1 for sorcerers, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Castle Ironfist, 500 Gold\nMaster : Free Haven, 2500 Gold (Level 7, Endurance 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[25]="Meditation skill adds spell points directly to your character's spell point totals.  Multiply the skill in meditation by the character's base class bonus (4 for sorcerers, 0 for knights, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Silver Cove, 500 Gold\nMaster : Misty Islands, 2500 Gold (Level 7, Personality 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[26]="Perception increases your chance of noticing a trap as it goes off and reducing or avoiding the damage it would cause  Perception also allows your character to notice treasures where others would not.  Higher perception skill allows you to escape stronger traps and notice harder to find treasures. \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Bootleg Bay, 500 Gold\nMaster : Mire of the Damned, 2500 Gold (Level 7, Luck 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[27]="Diplomacy helps to soften the impact of begging, bribing, or threatening someone to get them to cooperate with you.  The higher the skill, the less your reputation will suffer when you take any of those actions.  Expert and master ranking will double and triple the  of diplomacy.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Mire of the Damned, 2000 Gold\nMaster : Frozen Highlands, 2500 Gold (Level 7, Fame 200)   \n------------------------------------------------------------\n" 
+
+
+	Game.SkillDescriptions[29]="Disarm traps skill is checked automatically when opening a trapped chest or other container.  A higher skill in disarm traps gives a better chance of disarming the trap.  Expert and Master rank doubles and triples the chance to successfully disarm the trap. \n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 500 Gold\nMaster : Frozen Highlands, 2500 Gold (Level 7, Accuracy 30)   \n------------------------------------------------------------\n" 
+	Game.SkillDescriptions[30]="Learning skill directly increases the experience your character receives.  Every point of skill is a percent of awarded experience that is given as a bonus (plus a starting bonus of 9%).  Five skill points would turn a 100 experience point award into a 114 experience point award.  Capped at Skill Level 10 (Master). \n\n--------------------Trainer locations--------------------\nExpert : New Sorpigal / Castle Ironfist, 2000 Gold\nMaster : Silver Cove, 5000 Gold (Level 7, Intellect 30)   \n------------------------------------------------------------\n" 
+	end
+end
 ----------------------------------------------------------------------------------------------------
 -- global constants and lists
 ----------------------------------------------------------------------------------------------------
@@ -317,13 +357,13 @@ local newArmorSkillResistanceBonuses =
 	[const.Skills.Plate]	= {0, 1, 2, },
 }
 
--- armor skill damage reduction exponential multiplier (by rank)
-
+-- armor skill damage reduction exponential multiplier (by rank) 
+--NOT USED ANYMORE
 local newArmorSkillDamageMultiplier =
 {
 	[const.Skills.Leather]	= {1.00, 1.00, 1.00, },
-	[const.Skills.Chain]	= {1.00, 1.00, 1.00, },
-	[const.Skills.Plate]	= {1.00, 1.00, 1.00, },
+	[const.Skills.Chain]	= {1.00, 0.99, 0.99, },
+	[const.Skills.Plate]	= {1.00, 0.98, 0.98, },
 }
 
 -- local recoveryBonusByMastery = {[const.Novice] = 4, [const.Expert] = 5, [const.Master] = 6, }
@@ -369,6 +409,7 @@ local classMeleeWeaponSkillDamageBonus =
 	[const.Class.BattleMage] = 0.5,
 	[const.Class.WarriorMage] = 1,
 }
+
 local classRangedWeaponSkillAttackBonusMultiplier =
 {
 	[const.Class.Archer] = 5/3,
@@ -393,8 +434,7 @@ local classRangedWeaponSkillDamageBonus =
 }
 
 -- plate cover chances by rank
-local plateCoverChances = {[const.Novice] = 0.1, [const.Expert] = 0.2, [const.Master] = 0.3, }
-
+local plateCoverChances = {[const.Novice] = 0.2, [const.Expert] = 0.2, [const.Master] = 0.2, }
 -- shield projectile damage multiplier by mastery
 local shieldProjectileDamageReductionPerLevel = 0.01
 
@@ -780,12 +820,12 @@ local function getWeaponRecoveryCorrection(equipmentData1, equipmentData2, playe
 		
 		-- class bonus
 		
-		if equipmentData1.skill == const.Skills.Bow or (blastersUseClassMultipliers and equipmentData1.skill == const.Skills.Blaster) then
-			local rangedWeaponSkillSpeedBonusMultiplier = classRangedWeaponSkillSpeedBonusMultiplier[player.Class]
-			if rangedWeaponSkillSpeedBonusMultiplier ~= nil then
-				newRecoveryBonus = newRecoveryBonus * rangedWeaponSkillSpeedBonusMultiplier
-			end
-		end
+		--if equipmentData1.skill == const.Skills.Bow or (blastersUseClassMultipliers and equipmentData1.skill == const.Skills.Blaster) then
+		--	local rangedWeaponSkillSpeedBonusMultiplier = classRangedWeaponSkillSpeedBonusMultiplier[player.Class]
+		--	if rangedWeaponSkillSpeedBonusMultiplier ~= nil then
+		--		newRecoveryBonus = newRecoveryBonus * rangedWeaponSkillSpeedBonusMultiplier
+		--	end
+		--end
 		
 		-- replace old with new bonus
 
@@ -1097,7 +1137,6 @@ function events.CalcStatBonusBySkills(t)
 			
 			-- recalculate bonus
 			
-			t.Result = t.Result - oldBonus + newBonus
 			
 		end
 		
@@ -1436,7 +1475,7 @@ end
 
 
 
-
+--[[
 function events.CalcDamageToPlayer(t)
 
 	local equipmentData = getPlayerEquipmentData(t.Player)
@@ -1460,6 +1499,7 @@ function events.CalcDamageToPlayer(t)
 	end
 	
 end
+--]]
 
 -- applySpecialWeaponSkill
 
@@ -1605,13 +1645,24 @@ function events.GameInitialized2()
 	-- 
 	-- class descriptions
 	----------------------------------------------------------------------------------------------------
-	Game.ClassDescriptions[const.Class.Paladin] ="A cross between Knight and Cleric, Paladins perform both roles well, but not as well as the more focused classes they borrow from.  Like Knights, Paladins can learn to use any type of weapon or armor, although they don’t have as many choices to begin with.  Paladins also begin with the Spirit realm of magic, and can also learn to use the Clerical Mind, Body and Light realms.  They cannot, however, learn to use the greater realm of Dark, nor any of the Elemental realms.  Paladins that are true to their cause may be promoted to Crusader (gaining one hit point and spell point per level) and ultimately to Hero (gaining another hit point and spell point per level).  Paladins may learn all of the secondary skills."
-	Game.ClassDescriptions[const.Class.Crusader] = "Crusader is the first Paladin promotion.  Crusaders can learn to use any type of weapon or armor, and they can learn the Clerical magics of Spirit, Mind, and Body.  Crusaders enjoy the benefit of an extra hit point and spell point per level, and can be promoted to Heroes, gaining an additional hit point and spell point per level."
-	Game.ClassDescriptions[const.Class.Hero] = "Hero is the second and last Paladin promotion.  Heroes can learn to use any type of weapon or armor, and they can learn the Clerical magics of Spirit, Mind, and Body.  Heroes enjoy the benefit of an extra two hit points and spell points per level." 
-	Game.ClassDescriptions[const.Class.Archer] = "Like Paladins, the Archer is a hybrid of the Knight and Sorcerer classes.  Archers may learn to use any type of weapon (specializing in the bow, of course) but they may never learn the shield or plate armor skills.  They are compensated by beginning with the Air realm of magic and may eventually learn to use the rest of the Elemental realms.  The greater realm of Light is, however, beyond their grasp.  Archers can be promoted to Battle Mage (gaining one hit point and one spell point per level) and eventually may become Warrior Mages (gaining another hit point and spell point per level).  All of the secondary skills are open to the Archer.\n\nArchers are skilled Bow users and add 2 Attack per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers"
-	Game.ClassDescriptions[const.Class.BattleMage] = "Battle Mage is the first Archer promotion.  Battle Mages may learn to use any type of weapon, but they may never learn the shield or plate armor skills.  They may also learn the four elemental schools of magic of the Sorcerer.  Battle Mages enjoy the benefit of an extra hit point and spell point per level, and may be promoted to Warrior Mage, gaining another hit point and spell point per level.\n\nBattle Mage are Great Bow users and add 2 attack and 1 damage per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers"
-	Game.ClassDescriptions[const.Class.WarriorMage] = "Warrior Mage is the second and last Archer promotion.  Warrior Mages may learn to use any type of weapon, but they may never learn the shield or plate armor skills.  They may also learn the four elemental schools of magic of the Sorcerer.  Warrior Mages enjoy the benefit of an extra two hit points and spell points per level.\n\nWarrior Mage are formidable Bow users and add 2 attack, 2 damage and 1% Attack Speed per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers"
-	
+	Game.ClassDescriptions[const.Class.Paladin] ="A cross between Knight and Cleric, Paladins perform both roles well, but not as well as the more focused classes they borrow from.  Like Knights, Paladins can learn to use any type of weapon or armor, although they don't have as many choices to begin with.  Paladins also begin with the Spirit realm of magic, and can also learn to use the Clerical Mind, Body and Light realms.  They cannot, however, learn to use the greater realm of Dark, nor any of the Elemental realms.  Paladins that are true to their cause may be promoted to Crusader (gaining one hit point and spell point per level) and ultimately to Hero (gaining another hit point and spell point per level).  Paladins may learn all of the secondary skills. \n\n Mastery: Paladins gain additional damage/healing to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7 * Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in axe, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both."
+	Game.ClassDescriptions[const.Class.Crusader] = "Crusader is the first Paladin promotion.  Crusaders can learn to use any type of weapon or armor, and they can learn the Clerical magics of Spirit, Mind, and Body.  Crusaders enjoy the benefit of an extra hit point and spell point per level, and can be promoted to Heroes, gaining an additional hit point and spell point per level. \n\n Mastery: Paladins gain additional damage/healing to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7 * Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in axe, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both"
+	Game.ClassDescriptions[const.Class.Hero] = "Hero is the second and last Paladin promotion.  Heroes can learn to use any type of weapon or armor, and they can learn the Clerical magics of Spirit, Mind, and Body.  Heroes enjoy the benefit of an extra two hit points and spell points per level. \n\n Mastery: Paladins gain additional damage/healing to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7 * Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in axe, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both" 
+	Game.ClassDescriptions[const.Class.Archer] = "The Archer is a hybrid of the Knight and Sorcerer classes.  Archers may learn to use any type of weapon (specializing in the bow, of course) but they may never learn the shield or plate armor skills.  They can use elemental and Dark magic. All of the secondary skills are open to the Archer.\n\nArchers are skilled Bow users and add 2 Attack per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers. \n\n Mastery: Archers gain additional damage to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7*Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in dagger, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both."
+	Game.ClassDescriptions[const.Class.BattleMage] = "Battle Mage is the first Archer promotion.  Battle Mages may learn to use any type of weapon, but they may never learn the shield or plate armor skills.  They may also learn the four elemental schools of magic of the Sorcerer.  Battle Mages enjoy the benefit of an extra hit point and spell point per level, and may be promoted to Warrior Mage, gaining another hit point and spell point per level.\n\nBattle Mage are Great Bow users and add 2 attack and 1 damage per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers. \n\n Mastery: Archers gain additional damage to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7 * Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in dagger, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both."
+	Game.ClassDescriptions[const.Class.WarriorMage] = "Warrior Mage is the second and last Archer promotion.  Warrior Mages may learn to use any type of weapon, but they may never learn the shield or plate armor skills.  They may also learn the four elemental schools of magic of the Sorcerer.  Warrior Mages enjoy the benefit of an extra two hit points and spell points per level.\n\nWarrior Mage are formidable Bow users and add 2 attack, 2 damage and 1% Attack Speed per skill level.\n\nArchers are also swift dagger users, having a 5% bonus crit chance and critical damage at 75% with 1 dagger, 200% with 2 daggers. \n\n Mastery: Archers gain additional damage to weapon and spell, the bonus depends on mastery and the rank of the opposite skillset. Bonus is (Masteryrank^0.7 * Max(weapon/magicrank)^0.7)/100 to magic/weapon. So fx 30 ranks in dagger, 10 ranks in a magic school and 10 in mastery results 25% bonus damage to weapon and 54% bonus to magic, while 20 ranks in all 3 skills would result in a 66% bonus to both."
+	Game.ClassDescriptions[const.Class.Sorcerer] = "Students of the realm of Elemental magic, Sorcerers concentrate on offensive and utilitarian magic.  Sorcerers are downright rotten fighters barely able to learn to use the dagger, the staff, and the bow effectively.  They are forbidden any kind of armor or shield and have the lowest hit points of all the classes.  With that aside, Sorcerers can wield mighty offensive spells and have access to the Mirrored Path of the Light and the Dark, from which come the best spells in the lands.  After plenty of spell casting experience, Sorcerers can be promoted to Wizard (gaining one hit point and one spell point per level) and then to Arch Mage (gaining another hit point and spell point).  No secondary skills are forbidden Sorcerers.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.Wizard] = "Wizards are the first Sorcerer promotion.  They are downright rotten fighters, barely able to learn to use the dagger, sfaff, and bow effectively.  They cannot use armor better than leather or a shield and have the lowest hit points of all the classes.  With that aside, Wizards have access to the elemental spells and Light and Dark magic.  Wizards enjoy the benefit of an extra hit point and extra spell point per level, and they can be promoted to Arch Mage, gaining another hit point and spell point per level.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.ArchMage] = "Archmage is the second and last Sorcerer promotion.  They are downright rotten fighters, barely able to learn to use the dagger, sfaff, and bow effectively.  They cannot use armor better than leather or a shield and have the lowest hit points of all the classes.  With that aside, Wizards have access to the elemental spells and Light and Dark magic.  Wizards enjoy the benefit of an extra hit point and extra spell point per level, and they can be promoted to Arch Mage, gaining another hit point and spell point per level.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.Cleric] = "Clerics in Enroth are adventuring, spell casting holy men.  A Cleric is a mediocre fighter but an excellent spell caster, with spells concentrating on healing and defensive themes.  Clerics and Sorcerers are the only two classes that can learn from the Mirrored Path of the Light and the Dark, and the awesome spells these realms of magic offer.  They are, unfortunately, rather limited in their weapons, with mace, staff, and bow being their only choices.  Armor is a little better with plate being the only kind forbidden them, and they have no restrictions on secondary skills.  With much diligence and study, Clerics can be promoted to Priest (gaining one hit point and spell point per level) and eventually to High Priest (gaining another hit point and spell point).\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.Priest] = "Priest is the first Cleric Promotion.  Priests can learn spells from the schools of Spirit, Mind, Body, Light, and Dark.  They are, unfortunately, rather limited in their weapons, with mace, staff, and bow being their only choices.  Armor is a little better with plate being the only kind forbidden them, and they have no restrictions on secondary skills.  They enjoy the benefit of an extra hit point and spell point per level, and can be promoted to High Priest to gain another hit point and spell point per level.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.HighPriest] = "High Priest is the second and last Cleric Promotion.  Hight Priests can learn spells from the schools of Spirit, Mind, Body, Light, and Dark.  They are, unfortunately, rather limited in their weapons, with mace, staff, and bow being their only choices.  Armor is a little better with plate being the only kind forbidden them, and they have no restrictions on secondary skills.  High Priests enjoy the benefit of an extra two hit points and spell points per level. \n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.Druid] = "Druids are a hybrid of the Sorcerer and Cleric classes.  They make poor fighters (better only than the lowly Sorcerer) and have relatively few hit points.  On the plus side, Druids can use both Sorcerer and Clerical magic.  Druids may not learn Light and Dark magic, and they can only use the staff, dagger, and bow as weapons while wearing only leather and shield as armor.  All secondary skills are open to the Druid, and as an added bonus Druids may begin the game with the Learning skill.  Druids can be promoted to Great Druid (gaining one hit point and one spell point per level) and eventually to Arch Druid (gaining another spell point and hit point per level).\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.GreatDruid] = "Great Druids are the first Druid promotin.  They have access to both the Sorcerer's four elemental magics, and the Cleric's schools of Spirit, Mind, and Body magic.  They may not, however, learn to use Light or Dark magic, and they can only use the staff, dagger, and bow as weapons.  Great Druids are also restricted to leather and shield as armor.  Great Druids enjoy the benefit of an extra hit point and spell point per level, and may be promoted to Arch Druid, gaining another hit point and spell point per level.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.ArchDruid] = "Arch Druids are the second and last Druid promotin.  They have access to both the Sorcerer's four elemental magics, and the Cleric's schools of Spirit, Mind, and Body magic.  They may not, however, learn to use Light or Dark magic, and they can only use the staff, dagger, and bow as weapons.  Arch Druids are also restricted to leather and shield as armor.  Arch Druids enjoy the benefit of an extra two hit points and spell points per level.\n\n Mastery: Mastery increases casting speed by 1% and reduces damage taken from physical sources by 1.75% pr rank"
+	Game.ClassDescriptions[const.Class.Knight] = "The Knight class is the workhorse fighting class.  Knights start with the largest selection of weapons and armor, and may ultimately use any type of weapon or armor.  Being the toughest warriors of the classes, Knights begin with the greatest number of hit points and get the most number of hit points when they advance in level.  Knights can be promoted to Cavalier status with a two hit point per level gain, and then to Champion status with another two hit point per level gain.  Knights may never learn spells, nor may they ever learn (or need) the Meditation skill.\\ Knight - Cavalier - Champion adds 0 - 1.0 - 2 additional damage per skill level to each distinct melee weapon type in hands.\n\n Mastery: Mastery increases damage dealt by 1% and reduces damage taken by 1% pr rank"
+	Game.ClassDescriptions[const.Class.Cavalier] = "The Cavalier class is the first promotion of the Knight.  Cavaliers may use any type of weapon or armor, but they may not learn spells.  Cavaliers enjoy the benefit of an extra two hit points per level, and can be promoted once more to Champion status with another two hit point per level gain.  \\ Knight - Cavalier - Champion adds 0 - 1.0 - 2 additional damage per skill level to each distinct melee weapon type in hands.\n\n Mastery: Mastery increases damage dealt by 1% and reduces damage taken by 1% pr rank"
+	Game.ClassDescriptions[const.Class.Champion] = "The Champion class is the second and last promotion of the Knight.  Champions may use any type of weapon or armor, but they may not learn spells.  Champions enjoy the benefit of an extra four hit points per level.\\ Knight - Cavalier - Champion adds 0 - 1.0 - 2 additional damage per skill level to each distinct melee weapon type in hands.\n\n Mastery: Mastery increases damage dealt by 1% and reduces damage taken by 1% pr rank."
 	-- melee damage bonus
 	
 	
@@ -1634,11 +1685,11 @@ function events.GameInitialized2()
 	----------------------------------------------------------------------------------------------------
 	-- skill descriptions
 	----------------------------------------------------------------------------------------------------
-	Game.SkillDescriptions[const.Skills.Bodybuilding] = "Bodybuilding skill adds hit points directly to your character’s hit point totals.  Multiply the skill in bodybuilding by the character's base class bonus (4 for knights, 2 for sorcerers, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\nEach point in skill will also grant Skill^2 of extra maximum health per skill level."
-	--Game.SkillDescriptions[const.Skills.Bodybuilding] = string.format("Bodybuilding skill adds hit points directly to your character’s hit point totals.  Multiply the skill in bodybuilding by the character's base class bonus (4 for knights, 2 for sorcerers, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\nEach point in skill will also grant Skill^2 of extra maximum health per skill level.\nCurrent bonus is: %s",(Party[Game.CurrentPlayer].Skills[const.Skills.Bodybuilding]%64)^2)
-	
-	Game.SkillDescriptions[const.Skills.Meditation] = "Meditation skill adds spell points directly to your character’s spell point totals.  Multiply the skill in meditation by the character’s base class bonus (4 for sorcerers, 0 for knights, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\nEach point in skill will grant mana regeneration depending on maximum Mana and Meditation skill.\nHero and Warrior Mage get an extra 50% mana regeneration bonus."
-	
+	Game.SkillDescriptions[const.Skills.Bodybuilding] = string.format("%s\n\nEach point in skill will also grant Skill^2 of extra maximum health per skill level.",Game.SkillDescriptions[24])
+	--Game.SkillDescriptions[const.Skills.Bodybuilding] = string.format("Bodybuilding skill adds hit points directly to your character's hit point totals.  Multiply the skill in bodybuilding by the character's base class bonus (4 for knights, 2 for sorcerers, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\nEach point in skill will also grant Skill^2 of extra maximum health per skill level.\nCurrent bonus is: %s",(Party[Game.CurrentPlayer].Skills[const.Skills.Bodybuilding]%64)^2)
+	if SETTINGS["ShowTrainerLocations"]~=true then
+	Game.SkillDescriptions[const.Skills.Meditation] = "Meditation skill adds spell points directly to your character's spell point totals.  Multiply the skill in meditation by the character's base class bonus (4 for sorcerers, 0 for knights, etc.) to get the total.  Expert ranking doubles this total and master triples it.\n\nEach point in skill will grant mana regeneration depending on maximum Mana and Meditation skill.\nHero and Warrior Mage get an extra 50% mana regeneration bonus."
+	end
 	Game.SkillDescriptions[const.Skills.Bow] = Game.SkillDescriptions[const.Skills.Bow] ..
 		string.format(
 			"\n\nBase bonus Attack Speed: %d\n\nBonus increment per skill level\n------------------------------------------------------------\n          attack | speed | damage ",
@@ -1713,7 +1764,9 @@ function events.GameInitialized2()
 		)
 		]]
 	Game.SkillDescriptions[const.Skills.Dagger] = "While daggers don't do the kind of damage that a sword or an axe can deliver, they are very quick—sometimes letting you get two attacks for every one of your slower opponents'.\n\nMain hand dagger do not get any class damage bonus\n\nDagger can be dual wielded at Novice Level and has 5+1% chance per skill level to deal critical damage, dealing 40% extra damage.\nDual wielding dagger will make your critical hits to deal 150% extra damage, allowing huge critical hits.\n\nBase bonus Attack speed: 40\n\nBonus increment per skill level\n------------------------------------------------------------\n          attack | speed |"
-		
+	if SETTINGS["StatsRework"]==true then
+		Game.SkillDescriptions[const.Skills.Dagger] = "While daggers don't do the kind of damage that a sword or an axe can deliver, they are very quick—sometimes letting you get two attacks for every one of your slower opponents'.\n\nMain hand dagger do not get any class damage bonus\n\nDagger can be dual wielded at Novice Level and has 5+1% chance per skill level to deal critical damage, added to critical strike chance from luck.\n\n--------------------Trainer locations--------------------\nExpert : Castle Ironfist / Free Haven, 2000 Gold\nMaster : Frozen Highlands, 5000 Gold (Level 8, Speed 40)   \n------------------------------------------------------------\n\nBase bonus Attack speed: 40\n\nBonus increment per skill level\n------------------------------------------------------------\n          attack | speed |"
+	end
 	for rank = const.Novice, const.Master do
 		SkillDescriptionsRanks[rank][const.Skills.Dagger] =
 			string.format(
@@ -1831,7 +1884,7 @@ formatSkillRankNumber(Game.SkillRecoveryTimes[const.Skills.Shield + 1] * (rank =
 	
 	Game.SkillDescriptions[const.Skills.Learning] =
 		string.format(
-			"Learning skill directly increases the experience your character receives from killed monsters with 9%% starting bonus."
+			"%s",Game.SkillDescriptions[const.Skills.Learning]
 		)
 	for rank = const.Novice, const.Master do
 		SkillDescriptionsRanks[rank][const.Skills.Learning] =
@@ -1891,8 +1944,8 @@ formatSkillRankNumber(Game.SkillRecoveryTimes[const.Skills.Shield + 1] * (rank =
 	setProfessionCost(const.NPCProfession.Apprentice, 1500)
 	setProfessionCost(const.NPCProfession.Instructor, 1500)
 	setProfessionCost(const.NPCProfession.Teacher, 800)
-	--setProfessionCost(const.NPCProfession.SpellMaster, 4000)
-	--setProfessionCost(const.NPCProfession.Mystic, 2500)
+	setProfessionCost(const.NPCProfession.SpellMaster, 2000)
+	setProfessionCost(const.NPCProfession.Mystic, 1500)
 	
 	----------------------------------------------------------------------------------------------------
 	-- class starting skills
@@ -2382,7 +2435,7 @@ mem.hookcall(0x0049ED16, 0, 0, modifiedInnRoomPrice)
 -- need to fix: only affects dialog, not actual results. 
 -- re-evaluate pricing based on actual units of food sold?
 ----------------------------------------------------------------------------------------------------
-
+--[[
 local function modifiedInnFoodQuantity(d, def)
 
 	-- call original function
@@ -2399,7 +2452,7 @@ local function modifiedInnFoodQuantity(d, def)
 	
 end
 mem.hookcall(0x0049EEF9, 0, 0, modifiedInnFoodQuantity)
-
+]]
 ----------------------------------------------------------------------------------------------------
 -- inn food price is scaled with party experience level
 -- need to modify this to be relative to amount of food inn is actually selling, so that food price
@@ -2535,7 +2588,7 @@ local function getAverageDamageRate(player, ranged, monsterArmorClass)
 	-- set default armor class
 	
 	if monsterArmorClass == nil then
-		monsterArmorClass = 100
+		monsterArmorClass = player.LevelBase
 	end
 
 	-- get combat parameters
@@ -2570,9 +2623,14 @@ local function getAverageDamageRate(player, ranged, monsterArmorClass)
 	
 	-- calculate average damage rate against monster and no physical resistance
 	
-	local chanceToHit = (15 + 2 * attack) / (15 + 2 * attack + 15 + monsterArmorClass)
+	local chanceToHit = (15 + 2 * attack) / (30 + 2 * attack + 15 + monsterArmorClass)
 	local averageDamageRate = math.round(averageDamage * chanceToHit * (100 / recovery))
-	
+	if SETTINGS["StatsRework"]==true then
+		local might = player:GetMight()
+		local accuracy = player:GetAccuracy()
+		local luck = player:GetLuck()
+				averageDamageRate = averageDamageRate * (1+might/500) * (1+(math.min(0.05+luck/1000,1)*(0.5+accuracy/250)))
+	end
 	-- return value
 	
 	return averageDamageRate
@@ -2809,6 +2867,7 @@ local DaggerCritsIgnoreElementalBonuses = false
 -- crit messages
 -- variables need to be global (in table to not pollute namespace) for mem.topointer to always work correctly
 CritStrings = {attack = "%s critically hits %s for %lu damage!", kill = "%s critically inflicts %lu points killing %s!"}
+NormalStrings = {attack = "%s hits %s for %lu damage", kill = "%s inflicts %lu points killing %s!"}
 -- disable old crits
 -- mainhand
 mem.asmpatch(0x47E4F8, "jmp short " .. (0x47E526 - 0x47E4F8))
@@ -2845,6 +2904,9 @@ mem.hook(NewCode, function(d)
 	if daggerAmount > 0 then
 		-- (5 + skill * 1) / 100 is equal to 5% + 1% per skill
 		local chance = 5 + s + (classDaggerCriticalChanceBonus[pl.Class] or 0)
+		if SETTINGS["StatsRework"]==true then
+		 chance=0
+		end
 		if math.random(1, 100) <= chance then
 			local classMul = daggerClassCriticalMultipliers[pl.Class] and daggerClassCriticalMultipliers[pl.Class][daggerAmount + 1]
 			mul = classMul or daggerDefaultCriticalMultipliers[daggerAmount + 1]
@@ -2881,45 +2943,96 @@ if SETTINGS["StatsRework"]==true then
 	function events.CalcDamageToMonster(t)
 		local data = WhoHitMonster()	
 		--luck/accuracy bonus
+		if data and data.Player then
 			luck=data.Player:GetLuck()
 			accuracy=data.Player:GetAccuracy()
-				if (data.Object==nil or data.Object.Spell==100) then
+			if (data.Object==nil or data.Object.Spell==100) and t.DamageKind==0 then
 				critDamage=accuracy/250
-				else
-				personality=data.Player:GetPersonality()
-				intellect=data.Player:GetIntellect()
-				bonus=math.max(personality,intellect)
-				critDamage=bonus/500
-				end
+			else
+				critDamage=0
+				return
+			end
 			critChance=50+luck
+			--ADD DAGGER CRIT CHANCE INSTEAD OF CALCULATING 2 TIMES
+			chance=0
+			local s, m = SplitSkill(data.Player.Skills[const.Skills.Dagger])
+			crit = false -- just in case
+			if s == 0 then return end
+			-- returns item struct, not item index
+			local main, off = data.Player:GetActiveItem(const.ItemSlot.MainHand, false), data.Player:GetActiveItem(const.ItemSlot.ExtraHand, false)
+			-- damage multiplier
+			local daggerAmount = (main and main:T().Skill == const.Skills.Dagger and 1 or 0) + (off and off:T().Skill == const.Skills.Dagger and 1 or 0)
+			if daggerAmount > 0 then
+				-- (5 + skill * 1) / 100 is equal to 5% + 1% per skill
+				chance = 5 + s 
+			end
+			critChance=critChance+chance*10
 			roll=math.random(1, 1000)
 			if roll <= critChance then
 				t.Result=t.Result*(1.5+critDamage)
 				crit2=true
 			end
+			if comboPoint==nil then
+				comboPoint=0
+			end
+			if crit or crit2 then
+				if (data.Player.Class==12 or data.Player.Class==13 or data.Player.Class==14) and SETTINGS["ArcherAsAssassin"]==true then
+					ComboCritStrings = {attack = string.format("%s (%s CP)",CritStrings.attack,math.min(comboPoint+1,5)),kill = string.format("%s (%s CP)",CritStrings.kill,math.min(comboPoint+1,5))} 
+					comboCrit=true
+				end
+			elseif (data.Player.Class==12 or data.Player.Class==13 or data.Player.Class==14) and SETTINGS["ArcherAsAssassin"]==true then
+				ComboStrings = {attack = string.format("%s (%s CP)",NormalStrings.attack,math.min(comboPoint+1,5)),kill = string.format("%s (%s CP)",NormalStrings.kill,math.min(comboPoint+1,5))} 
+				combo=true
+			end
+		end
 	end
 else
+crit=false
 crit2=false
 end
 
 mem.autohook2(0x431276, function(d)
-	if crit or crit2 then
+	if comboCrit then
+		d.eax = mem.topointer(ComboCritStrings.kill)		
+		if crit then
+			mul = 1
+		end
+		crit2 = false
+		crit = false
+		comboCrit = false
+		return
+	elseif crit or crit2 then
 		d.eax = mem.topointer(CritStrings.kill)		
 		if crit then
 			mul = 1
 		end
 		crit2 = false
 		crit = false
+		return
+	elseif combo then
+		d.eax = mem.topointer(ComboStrings.kill)
+		combo=false
 	end
 end)
 mem.autohook2(0x431339, function(d)
-	if crit or crit2 then
-		d.eax = mem.topointer(CritStrings.attack)
+	if comboCrit then
+		d.eax = mem.topointer(ComboCritStrings.attack)		
 		if crit then
 			mul = 1
 		end
 		crit2 = false
 		crit = false
+		comboCrit = false
+	elseif crit or crit2 then
+		d.eax = mem.topointer(CritStrings.attack)		
+		if crit then
+			mul = 1
+		end
+		crit2 = false
+		crit = false
+	elseif combo then
+		d.eax = mem.topointer(ComboStrings.attack)
+		combo=false
 	end
 end)
 
@@ -3439,9 +3552,9 @@ if SETTINGS["ShowDamageTaken"]==true then
 			else if i==2 then
 			Game.ShowStatusText(string.format("              %s",t.Result))
 				else if i==1 then
-				Game.ShowStatusText(string.format("%s                       ",30))
+				Game.ShowStatusText(string.format("%s                       ",t.Result))
 					else if i==0 then
-					Game.ShowStatusText(string.format("%s                                                             ",30))
+					Game.ShowStatusText(string.format("%s                                                             ",t.Result))
 					end
 				end
 			end
@@ -3449,34 +3562,314 @@ if SETTINGS["ShowDamageTaken"]==true then
 	end
 end
 
-if SETTINGS["ReworkedMagicDamageCalculation"]==true then
-damage1=0
-	function events.CalcDamageToPlayer(t)
-		if t.DamageKind==1 or t.DamageKind==2 or t.DamageKind==3 or t.DamageKind==4 or t.DamageKind==5 then
-		--get resistances
-			if t.DamageKind==1 then
-			res=t.Player:GetMagicResistance()
-			end
-			if t.DamageKind==2 then
-			res=t.Player:GetFireResistance()
-			end
-			if t.DamageKind==3 then
-			res=t.Player:GetElectricityResistance()
-			end
-			if t.DamageKind==4 then
-			res=t.Player:GetColdResistance()
-			end
-			if t.DamageKind==5 then
-			res=t.Player:GetPoisonResistance()
-			end
-			luck=t.Player:GetLuck()/5
-			--start of new formula
-			roll = 1
-			while (math.random() < (1 - 30/(30 + res + luck))) and (roll <= 4) do
-				damage1 = t.Damage / (1 + 0.5 * roll)
-				roll = roll + 1
-			end
-			t.Result = damage1 * (1 / (1 + (res+luck)^0.7 / 100))
+
+
+-- allow changing mastery learning requirements
+
+-- new scope ("do" block) to allow short local names without name clashes
+do
+	local requirements = {
+		-- examples:
+		--[[
+		[const.Skills.Fire] = {
+			[const.Expert] = {
+				Rank = 12,
+				-- once there is an entry for specific mastery, only requirements listed apply, vanilla ones
+				-- are inactive even if not directly overridden
+				-- so fire expert won't cost any gold
+			},
+			[const.Master] =
+			{
+				Gold = 500000,
+				Stat = {[const.Stats.Intellect] = 500,},
+				Rank = 60,
+				-- set specific requirement/lore text for fire master
+				Text = "Lol you need to have 60 skill, 500 intellect and 500k gold, good luck with that!"
+			}
+		},
+		[const.Skills.Bodybuilding] = {
+			[const.Expert] =
+			{
+				Gold = 15000,
+				Rank = 6,
+				-- Text = ""
+			}
+			-- master has normal requirements
+		},
+		[const.Skills.Body] = {
+			[const.Expert] = {
+				Gold = 50000,
+				Rank = 5
+			},
+			[const.Master] = {
+				Gold = 12,
+				Text = "12 gold and you're set"
+			}
+		}
+		]]
+		
+		--sword
+		[const.Skills.Sword] = {
+			[const.Master] = {
+				Rank = 12,
+				Gold = 10000,
+				Text = "I am amongst the finest swordsmen in the land.  I will teach students free of charge who possess a high degree of skill (Rank 12) and are cavaliers in the eyes of Lord Osric Temper, the greatest swordsman ever to live.  I won't waste my time with anyone else. My fee is 10000 gold"
+			},
+		},			
+		--axe
+		[const.Skills.Axe] = {
+			[const.Expert] = {
+				Rank = 6,
+				Gold = 6000,
+				Text = "Using an axe is trickier than you think.  If you've already had some practice with the axe (Rank 6), I'll be happy to show you the finer points of splitting skulls.  My fee is 6000 gold."
+			},
+			[const.Master] = {
+				Rank = 12,
+				Gold = 30000,
+				Text = "So, you want to train your axe skill the dwarven way?  My tutorage will show you how to dramatically increase the damage you inflict with an axe. If you are skilled enough already (Rank 12), my fee is 30000 gold"
+			}
+		},
+		--spear
+		[const.Skills.Spear] = {
+			[const.Expert] = {
+				Rank = 6,
+				Gold = 4000,
+				Text = "It takes practice to use a spear right.  You have to know how to keep your enemy from getting past the point, and what to do when he does.  If you have enough skill already (Rank 6), I can show you the right moves.  All I want is 4000 gold for my services."
+			},
+			[const.Master] = {
+				Rank = 12,
+				Gold = 25000,
+				Text = "A little practice with the spear keeps you from making deadly mistakes in battle, but a lot more practice will help you get the best results from your spear.  I will teach you the secrets of the masters if you've already had a practice (Rank 12) and have achieved cavalier or honorary cavalier status.  My fee is 25000 gold."
+			},
+		},
+		--mace
+		[const.Skills.Mace] = {
+			[const.Expert] = {
+				Rank = 6,
+				Gold = 3000,
+				Text = "A lot of people think there isn't much finesse in using a mace or hammer, but they're wrong.  Beating something to death with a mace is a lot like playing the drums.  You have to target the hard, bony parts of your enemy so your weapon will bounce back quickly, cocking itself for another strike.  I can teach you this technique if you already have a little skill (Rank 6) for 3000 gold."
+			},
+			[const.Master] = {
+				Rank = 12,
+				Gold = 15000,
+				Text = "A master of the mace can strike enemies senseless with a single blow.  I've been practicing this technique for years and have it down to a science.  If you have the strength (Might 40) and the skill (Rank 12), I can teach you my technique for 15000 gold."
+			},
+		},
+
+		
+
+	}
+	
+
+	local cs = const.Stats
+	-- you can add additional stats if you wish
+	local statToText = {
+		Might = cs.Might,
+		Personality = cs.Personality,
+		Intellect = cs.Intellect,
+		Endurance = cs.Endurance,
+		Accuracy = cs.Accuracy,
+		Speed = cs.Speed,
+		Luck = cs.Luck,
+	}
+	local textToStat = table.invert(statToText)
+	local invSkill = table.invert(const.Skills)
+	local textToMastery = {[const.Expert] = "Expert", [const.Master] = "Master"}
+	local canShowConsole = true -- don't flood console if error occurs
+	function events.EnterNPC()
+		canShowConsole = true -- only once per npc enter
+	end
+	local function msgf(...)
+		if canShowConsole then
+			--debug.Message(string.format(...)) -- if you get this message, pass "Text" argument with custom requirements as in fire master example
 		end
 	end
+
+	-- update npc text for specific mastery of specific skill
+	local function processRequirementTexts(t, req)
+		local newText = t.Text
+		if req.Text then
+			newText = req.Text
+		else
+			local replaced
+			if req.Gold then
+				newText, replaced = newText:gsub("%d*( [Gg]old)", req.Gold .. "%1")
+				if replaced ~= 1 then
+					msgf("Couldn't find gold text to replace for skill %s", invSkill[t.Skill])
+				end
+			end
+			if req.Rank then
+				newText, replaced = newText:gsub("(%([Rr]ank )%d*%)", string.format("%%1%d%%)", req.Rank))
+				if replaced ~= 1 then
+					msgf("Couldn't find rank text to replace for skill %s", invSkill[t.Skill])
+				end
+			end
+			if req.Stat then
+				local replacement = {}
+				for id, val in pairs(req.Stat) do
+					replacement[#replacement + 1] = string.format("%s %d", textToStat[id], val)
+				end
+				local done
+				replacement = table.concat(replacement, ", ")
+				for name, value in pairs(statToText) do
+					newText, replaced = newText:gsub(
+						string.format("%s %%d*", name), replacement
+					)
+					if replaced == 1 then
+						done = true
+						break
+					end
+				end
+				if not done then
+					msgf("Couldn't find stat text to replace for skill %s", invSkill[t.Skill])
+				end
+			end
+		end
+		t.Text = newText
+	end
+
+	function events.GameInitialized2()
+		for skillId, masteries in pairs(requirements) do
+			for mastery, req in pairs(masteries) do
+				local t = {Skill = skillId, Text = Game.NPCText[200 + skillId * 2 + (mastery - 2)]}
+				processRequirementTexts(t, req)
+				Game.NPCText[200 + skillId * 2 + (mastery - 2)] = t.Text
+			end
+		end
+	end
+
+	local cannotTrainTextIds = {
+		gold = 260,
+		other = 261,
+		noSkill = 262,
+		masterFromNovice = 263,
+		unconscious = 264,
+		alreadyExpert = 265,
+		alreadyMaster = 266
+	}
+	
+	function events.CanTeachSkillMastery(t)
+		-- exit if no active player (idk if can happen)
+		if Game.CurrentPlayer == -1 then return end
+		local pl = Party[Game.CurrentPlayer]
+		local req = (requirements[t.Skill] or {})[t.Mastery + 2]
+		if req then -- custom requirements
+			local allow = true
+			local currentS, currentM = SplitSkill(pl.Skills[t.Skill])
+			local trainM = t.Mastery + 2
+			local cannotTrainReason -- nil by default
+			if pl.Unconscious ~= 0 or pl.Eradicated ~= 0 or pl.Paralyzed ~= 0 or pl.Stoned ~= 0 or pl.Dead ~= 0 or pl.Asleep ~= 0 then
+				allow = false
+				cannotTrainReason = cannotTrainTextIds.unconscious
+			elseif currentM == 0 then
+				allow = false
+				cannotTrainReason = cannotTrainTextIds.noSkill
+			elseif currentM == const.Novice and trainM == const.Master then
+				allow = false
+				cannotTrainReason = cannotTrainTextIds.masterFromNovice
+			elseif currentM == trainM then
+				allow = false
+				cannotTrainReason = currentM == const.Expert and cannotTrainTextIds.alreadyExpert or cannotTrainTextIds.alreadyMaster
+			end
+
+			t.Cost = req.Gold or 0
+			if allow and req.Gold then
+				if req.Gold > Party.Gold then
+					allow = false
+					cannotTrainReason = cannotTrainTextIds.gold
+				end
+			end
+			if allow and req.Rank then
+				if req.Rank > currentS then
+					allow = false
+					cannotTrainReason = cannotTrainTextIds.other
+				end
+			end
+			if allow and req.Stat then
+				for id, val in pairs(req.Stat) do
+					if val > pl.Stats[id].Base then
+						allow = false
+						cannotTrainReason = cannotTrainTextIds.other
+						break
+					end
+				end
+			end
+			t.Allow = allow
+			local newText = t.Text
+			if allow then
+				newText = string.format("Become %s in %s for %d gold", textToMastery[trainM], Game.GlobalTxt[271 + t.Skill], t.Cost)
+			elseif cannotTrainReason then
+				newText = Game.NPCText[cannotTrainReason]
+			end
+			t.Text = newText
+			canShowConsole = false
+		end
+	end
+end
+
+
+local function getSFTItem(p)
+	local i = (p - Game.SFTBin.Frames["?ptr"]) / Game.SFTBin.Frames[0]["?size"]
+	return Game.SFTBin.Frames[i]
+end
+
+local function scaleHook(d)
+	local t = {Scale = d.edx, Frame = getSFTItem(d.eax)}
+	t.MonsterIndex, t.Monster = GetMonster(d.edi - 0x80)
+	events.call("MonsterSpriteScale", t)
+	d.edx = t.Scale
+end
+
+mem.autohook(0x46B56D, scaleHook)
+mem.autohook2(0x433D53, scaleHook)
+
+function events.MonsterSpriteScale(t)
+	if t.Monster.Name~=Game.MonstersTxt[t.Monster.Id].Name then		
+		t.Scale=t.Scale*1.25
+		--rescale if mm6HD
+
+	end
+end
+
+-- adjust item values
+mem.hookfunction(0x448610, 1, 0, function(d, def, itemPtr)
+	local t = {Item = structs.Item:new(itemPtr), Value = def(itemPtr)}
+	events.call("CalcItemValue", t)
+	return t.Value
+end)
+
+function events.CalcItemValue(t)
+	i=t.Item.Number
+	baseValue=Game.ItemsTxt[i].Value
+	BonusStr=t.Item.BonusStrength
+	--fix cost for HP/SP items
+	if t.Item.Bonus==8 or t.Item.Bonus==9 then
+		BonusStr=BonusStr/2
+	end
+	--charges
+	chargesStr=math.ceil(t.Item.Charges/14)
+	if t.Item.Charges%14==7 or t.Item.Charges%14==8 then
+		chargesStr=chargesStr/2
+	end
+	--bonus2
+	bonus2Value=0
+	bonus2Mult=0
+	if t.Item.Bonus2>0 then
+		bonus2Value=Game.SpcItemsTxt[t.Item.Bonus2-1].Value
+	end
+	if bonus2Value<11 and t.Item.Bonus2>0 then
+		bonus2Mult=bonus2Value-1
+		bonus2Value=0
+	end
+	--activate to nerf item value
+	--[[
+	if Game.HouseScreen==3 then
+		BonusStr=BonusStr/2
+		chargesStr=chargesStr/2
+		bonus2Value=bonus2Value/2
+		bonus2Mult=bonus2Mult/2
+	end
+	]]
+	t.Value=baseValue+BonusStr*100+chargesStr*100+bonus2Value+baseValue*bonus2Mult
+	
 end

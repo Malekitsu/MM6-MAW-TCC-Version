@@ -14,10 +14,8 @@ local PRESETS = {
 	["ShowDiceInSpellDescription"] = false,
 	["MonsterExperienceMultiplier"] = 1.00,
 	["GlobalMapResetDays"] = "default",
-	["DifficultyModifier"] = 1.00,
 	HomingProjectiles = true,
 	["KnightAsBloodKnight"] = false,
-	["KnightAsGreyKnight"] = false,
 	["ArcherAsAssassin"] = false,
 	["ArcherAsAshikari"] = false,
 	["PaladinAsBerserker"] = false,
@@ -36,6 +34,7 @@ local PRESETS = {
 	["PowerCureOverflow"] = false,
 	["ShowTrainerLocations"] = true,
 	["colouredStats"] = false,
+	["TRUENIGHTMARE"] = false,
 }
 
 SETTINGS = { }

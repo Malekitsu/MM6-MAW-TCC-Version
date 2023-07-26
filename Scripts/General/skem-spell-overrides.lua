@@ -2,7 +2,7 @@
 	Skill Emphasis Mod - RawSugar's Spell Overrides
 	Supersedes various parts of Core; segments list lines to remove from 0.8.2
 ]]
-
+if SETTINGS["255MOD"]~=true then
 -- set to true to show damage in the spell descriptions as a dice string
 local SHOW_DAMAGE_AS_DICE = SETTINGS["ShowDiceInSpellDescription"]
 local ADAPTIVE = string.lower(SETTINGS["AdaptiveMonsterMode"])
@@ -18,8 +18,6 @@ local training = {
 }
 
 local spellTxtIds = {}
-
-local DifficultyModifier = SETTINGS["DifficultyModifier"]
 
 -- helper functions
 
@@ -198,7 +196,7 @@ local spellDescs = {
 		["Description"] = "Cures hit points of all characters in your party at once.  The number cured is equal to 10 plus 3 per point of skill in Body Magic.",
 	},
 		["Resurrection"] = {
-		["Description"] = "The final healing magic. Resurrects an eradicated (body destroyed) character if you cast this spell in time.  The greater the skill and rank in Spirit Magic the longer the condition could have been present before the “point of no return” is reached.  After that, the only way to resurrect the character is to visit a temple.  Casting this spell will leave your character in the weak condition.",
+		["Description"] = "The final healing magic. Resurrects an eradicated (body destroyed) character if you cast this spell in time.  The greater the skill and rank in Spirit Magic the longer the condition could have been present before the 'point of no return' is reached.  After that, the only way to resurrect the character is to visit a temple.  Casting this spell will leave your character in the weak condition.",
 		["Normal"] = "Works if eradicated less than 3 minutes per point of skill.\nHeals 50 HP + 15 per point of skill.",
 		["Expert"] = "Works if eradicated less than 1 hour per point of skill.\nHeals 100 HP + 15 per point of skill.",
 		["Master"] = "Works if eradicated less than 1 day per point of skill.\nHeals 150 HP + 15 per point of skill.",
@@ -210,31 +208,31 @@ local spellDescs = {
 		["Master"] = "Fastest recovery rate. Heals 9 points pr rank.",
 	},
 	["Cure Poison"] = {
-		["Description"] = "Heals and cures poison in a character if you cast this spell in time.  The greater the skill and rank in Body Magic the longer the character could have been poisoned before the “point of no return” is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
+		["Description"] = "Heals and cures poison in a character if you cast this spell in time.  The greater the skill and rank in Body Magic the longer the character could have been poisoned before the 'point of no return' is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
 		["Normal"] = "Works if poisoned less than 3 minutes per point of skill\nHeals 15 HP.",
 		["Expert"] = "Works if poisoned less than 1 hour per point of skill\nHeals 30 HP.",
 		["Master"] = "Works if poisoned less than 1 day per point of skill\nHeals 65 HP.",
 	},	
 		["Cure Insanity"] = {
-		["Description"] = "Heals and cures insanity if you cast this spell in time.  The greater the skill and rank in Mind Magic the longer the character could have been insane before the “point of no return” is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
+		["Description"] = "Heals and cures insanity if you cast this spell in time.  The greater the skill and rank in Mind Magic the longer the character could have been insane before the 'point of no return' is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
 		["Normal"] = "Works if insane less than 3 minutes per point of skill\nCosts 20 SP.\nHeals 15+6 HP per point of skill.",
 		["Expert"] = "Works if insane less than 1 hour per point of skill\nCosts 30 SP.\nHeals 25+8 HP per point of skill.",
 		["Master"] = "Works if insane less than 1 day per point of skill\nCosts 40 SP.\nHeals 35+10 HP per point of skill.",
 	},	
 			["Remove Fear"] = {
-		["Description"] = "Heals and removes fear if you cast this spell in time.  The greater the skill and rank in Mind Magic the longer the character could have been insane before the “point of no return” is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
+		["Description"] = "Heals and removes fear if you cast this spell in time.  The greater the skill and rank in Mind Magic the longer the character could have been insane before the 'point of no return' is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
 		["Normal"] = "Works if afraid less than 3 minutes per point of skill\nCosts 2 SP.\nHeals 5 HP.",
 		["Expert"] = "Works if afraid less than 1 hour per point of skill\nCosts 4 SP.\nHeals 15 HP.",
 		["Master"] = "Works if afraid less than 1 day per point of skill\nCosts 6 SP.\nHeals 50 HP.",
 	},
 			["Remove Curse"] = {
-		["Description"] = "Heals and removes the cursed condition from a character if you cast this spell in time.  The greater the skill and rank in Spirit Magic the longer the condition could have been present before the “point of no return” is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
+		["Description"] = "Heals and removes the cursed condition from a character if you cast this spell in time.  The greater the skill and rank in Spirit Magic the longer the condition could have been present before the 'point of no return' is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
 		["Normal"] = "Works if cursed less than 3 minutes per point of skill\nCosts 3 SP.\nHeals 5 HP.",
 		["Expert"] = "Works if cursed less than 1 hour per point of skill\nCosts 6 SP.\nHeals 30 HP.",
 		["Master"] = "Works if cursed less than 1 day per point of skill\nCosts 12 SP.\nHeals 70 HP.",
 	},	
 			["Cure Disease"] = {
-		["Description"] = "Heals and cures disease in a character if you cast this spell in time.  The greater the skill and rank in Body Magic the longer the character could have been diseased before the “point of no return” is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
+		["Description"] = "Heals and cures disease in a character if you cast this spell in time.  The greater the skill and rank in Body Magic the longer the character could have been diseased before the 'point of no return' is reached.  After that, the only way to remove the condition short of Divine Intervention is to visit a temple.",
 		["Normal"] = "Works if cursed less than 3 minutes per point of skill\nHeals 25 HP.",
 		["Expert"] = "Works if cursed less than 1 hour per point of skill\nHeals 45 HP.",
 		["Master"] = "Works if cursed less than 1 day per point of skill\nHeals 90 HP.",
@@ -289,7 +287,7 @@ local spellCosts =
 	["Toxic Cloud"] = {["Normal"] = 4, ["Expert"] = 12, ["Master"] = 30},
 	
 	--debuff spells
-	["Slow"] = {["Master"] = 5},
+	["Slow"] = {["Normal"] = 5, ["Expert"] = 15, ["Master"] = 25},
 	["Paralyze"] = {["Master"] = 25},
 	["Mass Curse"] = {["Master"] = 20},
 	["Shrinking Ray"] = {["Master"] = 16},
@@ -922,18 +920,24 @@ Xlevel = Game.MonstersTxt[monster.Id].Level
 Mlevel = monsterArray["Level"]
 modi =  (1+Mlevel)/(1+Xlevel)
 end
+if Mlevel < 1 then
+Mlevel = 1
+end
+if modi < 1 then
+modi = 1
+end
 	-- execute original code
 
 	local damage = def(monsterPointer, attackType)
 
 	if attackType == 0 then
 		-- primary attack is calculated correctly
-		damage = damage * DifficultyModifier
+		damage = damage 
 		return damage
 	elseif attackType == 1 then
 		-- secondary attach uses attack1 DamageAdd
 		-- replace Attack1.DamageAdd with Attack2.DamageAdd
-		damage = (damage - monster.Attack1.DamageAdd + monster.Attack2.DamageAdd) * DifficultyModifier
+		damage = (damage - monster.Attack1.DamageAdd + monster.Attack2.DamageAdd) 
 		return damage
 	elseif attackType == 2 and (monster.Spell == 44 or monster.Spell == 95) then
 		-- don't recalculate Mass Distortion or Finger of Death
@@ -944,9 +948,9 @@ end
 
 	local spellSkill, spellMastery = SplitSkill(monster.SpellSkill)
 	if SETTINGS["ItemRework"]==true and SETTINGS["StatsRework"]==true then
-	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/20)+0.75) * (Mlevel^1.6/1000+1) * modi
+	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * ((Mlevel/20)+0.75) * (Mlevel^1.2/1000+1) 
 	else
-	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0) * DifficultyModifier * ((Mlevel/20)+0.75) * modi
+	damage = Game.CalcSpellDamage(monster.Spell, spellSkill, spellMastery, 0)  * ((Mlevel/20)+0.75) 
 	end
 	
 	return damage
@@ -1392,6 +1396,8 @@ function events.RemoveConditionBySpell(t)
 	end
 end
 
+
+
 -- MASS DISTORSION Fix
 
 function events.CalcSpellDamage(t)
@@ -1404,12 +1410,540 @@ end
 
 function events.CalcDamageToMonster(t)
 	local data = WhoHitMonster()
-	if data.Player and data.Spell==const.Spells.RingOfFire then
+	if data and data.Player and data.Spell==const.Spells.RingOfFire then
 	distance=((t.Monster.X-Party.X)^2+(t.Monster.Y-Party.Y)^2)^0.5
 		if distance>256 then
 			t.Result=t.Result*math.max(1-((distance-281.6)/256),0.1)
 		end
 	end
 end
+end
+
+local function GetObject(ptr)
+	local i = (ptr - Map.Objects[0]["?ptr"]) / Map.Objects[0]["?size"]
+	return Map.Objects[i], i
+end
+--------------------------------
+--FIX OBJECTS
+--------------------------------
+mem.autohook2(0x45D80D, function(d)
+	local t = {Object = GetObject(d.esi), Monster = Map.Monsters[d.edi / Map.Monsters[0]["?size"]], Allow = d.eax ~= 0, SpellSkill = d.ebp}
+	events.call("MonsterHitByObject", t) -- works only for "non-damage" objects apparently
+	d.eax = t.Allow and 1 or 0
+	d.ebp = t.SpellSkill
+end)
+
+function events.MonsterHitByObject(t)
+	--coordinates
+	X, Y, Z = XYZ(t.Monster)
+	if t.Object.Velocity[1]~=1000 and Game.ObjListBin[t.Object.TypeIndex].Name=="Charm" then
+		t.SpellSkill=t.Object.SpellSkill/t.Monster.Level^0.7
+		for i=0,Map.Monsters.high do
+		--number of targets, 1 novice, 2 expert, 3 master
+		count=t.Object.SpellMastery
+			if Map.Monsters[i].Active and count>0 then
+			X2, Y2, Z2 = XYZ(Map.Monsters[i])
+			distance=((X-X2)^2+(Y-Y2)^2)^0.5
+			distance=(distance^2+(Z-Z2)^2)^0.5
+				if distance<512 and distance>=0.05 and Map.Monsters[i].SpellBuffs[1].ExpireTime==0 then
+					Game.SummonObjects(6050,X2,Y2-50,Z2+100,0,1)
+					objectCreated=true
+					owner=t.Object.Owner
+					count=count-1
+				end
+			end
+		end
+	end	
+	if objectCreated then
+	index=(owner-4)/8
+	skill=Party[index].Skills[const.Skills.Mind]
+	s, m = SplitSkill(skill)
+	m2=m
+	if m==3 then
+		--master has quadruple duration
+		m2=4
+	end
+		for i=0,Map.Objects.high do
+			if Map.Objects[i].Type==6050 then
+			Map.Objects[i].Spell=1
+			Map.Objects[i].SpellLevel=1
+			Map.Objects[i].SpellMastery=m
+			Map.Objects[i].SpellSkill=120*s*m2
+			Map.Objects[i].SpellType=1
+			Map.Objects[i].Owner=owner
+			Map.Objects[i].Visible=true
+			Map.Objects[i].Velocity[0]=0
+			Map.Objects[i].Velocity[1]=1000
+			Map.Objects[i].Velocity[2]=0
+			end
+		end
+	end
+	objectCreated=false
+end
 
 
+
+
+--chain lightning at master, for fun only :P
+--[[
+
+function events.CalcDamageToMonster(t)
+	local data = WhoHitMonster()
+	if data.Object then
+		if data.Object.Spell==18 and data.Object.SpellMastery==3 then
+			monsterIndex=getClosestMonsterInRange(t.Monster.X,t.Monster.Y,t.Monster.Z,512)
+			if monsterIndex~=nil then
+				Game.SummonObjects(2060,t.Monster.X,t.Monster.Y,t.Monster.Z+100,0,1)
+				objectCreated=true
+				index=data.Player:GetIndex()
+			end
+		end
+	end
+	if objectCreated then
+	skill=Party[index].Skills[const.Skills.Air]
+	s, m = SplitSkill(skill)
+		for i=0,Map.Objects.high do
+			if Map.Objects[i].Type==2060 then
+			Map.Objects[i].Spell=18
+			Map.Objects[i].SpellLevel=m
+			Map.Objects[i].SpellMastery=3
+			Map.Objects[i].SpellSkill=s
+			Map.Objects[i].SpellType=18
+			Map.Objects[i].Owner=index*8+4
+			Map.Objects[i].Visible=true
+			Map.Objects[i].Velocity[0]=(Map.Monsters[monsterIndex].X-t.Monster.X)*10
+			Map.Objects[i].Velocity[1]=(Map.Monsters[monsterIndex].Y-t.Monster.Y)*10
+			Map.Objects[i].Velocity[2]=(Map.Monsters[monsterIndex].Z-t.Monster.Z)*10
+			end
+		end
+	end
+	objectCreated=false
+end
+
+]]
+
+--charm fix 
+function events.Tick()
+	for i=0,Map.Monsters.high do
+		if Map.Monsters[i].SpellBuffs[1].ExpireTime>0 then
+		Map.Monsters[i].HostileType = 0
+		end
+	end
+end
+
+--mass fear fix, monster immobilized instead in turn mode
+function events.LoadMap()
+mapvars.monstersVelocity=mapvars.monstersVelocity or {}
+mapvars.immobilized=mapvars.immobilized or {}
+end
+function events.Tick()
+	for i=0,Map.Monsters.high do
+		if Map.Monsters[i].SpellBuffs[4].ExpireTime>0 then
+			if Game.TurnBasedPhase==1 then
+				if mapvars.immobilized[i] and mapvars.immobilized[i]==2 then
+					mapvars.immobilized[i]=3
+				elseif mapvars.immobilized and mapvars.immobilized[i]==nil and Map.Monsters[i].Velocity>0 then
+					mapvars.monstersVelocity[i]=Map.Monsters[i].Velocity
+					mapvars.immobilized[i]=1
+					Map.Monsters[i].Velocity = 0
+				end
+			end
+		end
+	end
+	for i=0,Map.Monsters.high do
+		if Game.TurnBasedPhase==2 and mapvars.immobilized and mapvars.immobilized[i] and mapvars.immobilized[i]==1 then
+			mapvars.immobilized[i]=2
+		elseif Game.TurnBasedPhase==2 and mapvars.immobilized[i] and mapvars.immobilized[i]==3 then
+			Map.Monsters[i].Velocity=mapvars.monstersVelocity[i]
+			Map.Monsters[i].SpellBuffs[4].ExpireTime=0
+			mapvars.immobilized[i]=nil
+		end
+	end
+	if Game.TurnBasedPhase==0 then
+		if mapvars.monstersVelocity then
+			for index, value in pairs(mapvars.monstersVelocity) do
+				if value>0 then
+					Map.Monsters[index].Velocity=value
+				end
+			end
+		end
+	end
+end
+
+--paralyze fix
+function events.MonsterHitByObject(t)
+	if t.Object.Type==8080 then
+		t.Allow=false
+		skill=t.Object.SpellSkill/180
+		t.SpellSkill=t.Object.SpellSkill/t.Monster.Level^0.7
+		chance=30/(30+t.Monster.Level+t.Monster.MagicResistance)*(1+skill*0.02*t.Object.SpellMastery) 
+		--check for unique monster
+		if t.Monster.Name~=Game.MonstersTxt[t.Monster.Id].Name then
+			t.SpellSkill=t.Object.SpellSkill/2
+		end
+		if math.random()<chance then
+			t.Allow=true
+		end
+	end
+end
+
+
+
+function events.LoadMap()
+mapvars.paralyzed=mapvars.paralyzed or {}
+end
+--turn mode fix for paralysis
+function events.Tick()
+	for i=0,Map.Monsters.high do
+		if Map.Monsters[i].SpellBuffs[6].ExpireTime>0 then
+			if Game.TurnBasedPhase==1 then
+				if mapvars.paralyzed[i] and mapvars.paralyzed[i]==2 then
+					mapvars.paralyzed[i]=3
+				elseif mapvars.paralyzed and mapvars.paralyzed[i]==nil then
+					mapvars.paralyzed[i]=1
+				end
+			end
+		end
+	end
+	for i=0,Map.Monsters.high do
+		if Game.TurnBasedPhase==2 and mapvars.paralyzed and mapvars.paralyzed[i] and mapvars.paralyzed[i]==1 then
+			mapvars.paralyzed[i]=2
+		elseif Game.TurnBasedPhase==2 and mapvars.paralyzed[i] and mapvars.paralyzed[i]==3 then
+			Map.Monsters[i].SpellBuffs[6].ExpireTime=0
+			mapvars.paralyzed[i]=nil
+		end
+	end
+end
+
+--slow fix to do damage
+function events.MonsterHitByObject(t)
+	if t.Object.Type==8030 then
+		damage=0
+		local index=(t.Object.Owner-4)/8
+		local skill=Party[index].Skills[const.Skills.Light]
+		s, m = SplitSkill(skill)
+		--calculate damage
+		if m==1 then
+			damage=8
+			for i= 1,s do
+				damage=damage+math.random(1,5)
+			end
+		elseif m==2 then
+			damage=18
+			for i= 1,s do
+				damage=damage+math.random(1,12)
+			end
+		else 
+			damage=27
+			for i= 1,s do
+				damage=damage+math.random(1,18)
+			end	
+		end
+		damage=t.Monster:CalcTakenDamage(const.Damage.Magic, damage)
+		t.Monster.HP=math.max(t.Monster.HP-damage,0)
+		Game.ShowStatusText(string.format("Slow hits %s for %s points", t.Monster.Name, damage))
+	end
+end
+
+
+--turn to stone
+
+function events.MonsterHitByObject(t)	
+	--coordinates
+	X, Y, Z = XYZ(t.Monster)
+	if t.Object.Velocity[1]~=1000 and Game.ObjListBin[t.Object.TypeIndex].Name=="Turn To Stone" then
+	count=t.Object.SpellMastery
+		for i=0,Map.Monsters.high do
+		--number of targets, 1 novice, 2 expert, 3 master
+			if Map.Monsters[i].Active and count>0 and Map.Monsters[i].SpellBuffs[5].ExpireTime==0 then
+			X2, Y2, Z2 = XYZ(Map.Monsters[i])
+			distance=((X-X2)^2+(Y-Y2)^2)^0.5
+			distance=(distance^2+(Z-Z2)^2)^0.5
+				if distance<512 and distance>=0.05 then
+					Game.SummonObjects(4080,X2,Y2-50,Z2+100,0,1)
+					objectCreated=true
+					owner=t.Object.Owner
+					count=count-1
+				end
+			end
+		end
+	end	
+	if objectCreated then
+	index=(owner-4)/8
+	skill=Party[index].Skills[const.Skills.Earth]
+	s, m = SplitSkill(skill)
+	m2=m
+	if m==3 then
+		--master has quadruple duration
+		m2=4
+	end
+		for i=0,Map.Objects.high do
+			if Map.Objects[i].Type==4080 then
+			Map.Objects[i].Spell=5
+			Map.Objects[i].SpellLevel=3
+			Map.Objects[i].SpellMastery=m
+			Map.Objects[i].SpellSkill=150*m2*s
+			Map.Objects[i].SpellType=5
+			Map.Objects[i].Owner=owner
+			Map.Objects[i].Visible=true
+			Map.Objects[i].Velocity[0]=0
+			Map.Objects[i].Velocity[1]=1000
+			Map.Objects[i].Velocity[2]=0
+			end
+		end
+	end
+	objectCreated=false
+	
+	--set chances
+	if Game.ObjListBin[t.Object.TypeIndex].Name=="Turn To Stone" then
+		t.Allow=false
+		--chances will increase by 0.5,1,2% (NEM)
+		skill=t.Object.SpellSkill/1200
+		t.Object.SpellLevel=3
+		t.SpellSkill=t.SpellSkill/t.Monster.Level^0.7
+		chance=30/(30+t.Monster.Level+t.Monster.MagicResistance)*(1+skill*0.02) 
+		--check for unique monster
+		if t.Monster.Name~=Game.MonstersTxt[t.Monster.Id].Name then
+			t.SpellSkill=t.Object.SpellSkill/4
+		end
+		if math.random()<chance then
+			t.Allow=true
+		end
+	end
+end
+
+--FINGER OF DEATH FIX
+function events.Tick()
+for i=0,Map.Objects.high do
+		if Map.Objects[i].Type==9060 and (Map.Objects[i].Owner-4)%8==0 then
+			Map.Objects[i].Type=4000
+		end
+	end
+end
+--will remove 1/4 hp vs unique monsters, chances above 100 will increase kill chance, but will not be increased by "of dark" enchant
+function events.CalcDamageToMonster(t)
+data=WhoHitMonster()
+	if data and data.Object and data.Object.Spell==0 then
+		t.Result=0
+		skill=data.Player.Skills[const.Skills.Dark]
+		s, m=SplitSkill(skill)
+		killChance= 30/(30+t.Monster.Level+t.Monster.MagicResistance)*((0.02+m*0.01)*s)
+		roll=math.random()
+		if roll<killChance then
+			data.Object.Type=9060
+			if t.Monster.Name==Game.MonstersTxt[t.Monster.Id].Name then
+				Game.ShowStatusText(string.format("Finger of Death hits killing %s",t.Monster.Name))
+				t.Monster.HP=0
+			else
+				t.Monster.HP=t.Monster.HP-t.Monster.FullHP/4
+				Game.ShowStatusText(string.format("%s resists Finger of Deaths losing %s HP",t.Monster.Name,t.Monster.FullHP/4))
+			end
+		else
+			data.Object.Type=9061
+			data.Object.TypeIndex=223
+		end
+	end
+end
+
+--MANA COST CHANGE 
+--spell cost increase dictionary
+function events.GameInitialized2()
+	spellCostNormal={}
+	spellCostExpert={}
+	spellCostMaster={}
+	for i=1,99 do
+	spellCostNormal[i] = Game.SpellsTxt[i]["SpellPointsNormal"]
+	spellCostExpert[i] = Game.SpellsTxt[i]["SpellPointsExpert"]
+	spellCostMaster[i] = Game.SpellsTxt[i]["SpellPointsMaster"]
+	end
+end
+
+--adjust mana cost
+function events.Tick()
+	index=Game.CurrentPlayer
+	if index>=0 and index<=3 then
+		if SETTINGS["SorcererAsNecromancer"]==true and math.floor(Party[index].Class/3)==2 then 
+			mastery=Party[index].Skills[const.Skills.Thievery]
+			masteryS,MasteryM=SplitSkill(mastery)
+			for i=1,99 do
+				Game.SpellsTxt[i]["SpellPointsNormal"] = math.min(math.round(spellCostNormal[i] * (1+0.05*masteryS)),255)
+				Game.SpellsTxt[i]["SpellPointsExpert"] = math.min(math.round(spellCostExpert[i] * (1+0.05*masteryS)),255)
+				Game.SpellsTxt[i]["SpellPointsMaster"] = math.min(math.round(spellCostMaster[i] * (1+0.05*masteryS)),255)
+			end
+		elseif (Party[index].Class==12 or Party[index].Class==13 or Party[index].Class==14) and SETTINGS["ArcherAsAssassin"]==true and comboPoint[index]==5 then
+			for i=1,99 do
+				Game.SpellsTxt[i]["SpellPointsNormal"]=0
+				Game.SpellsTxt[i]["SpellPointsExpert"]=0
+				Game.SpellsTxt[i]["SpellPointsMaster"] =0
+			end			
+		else
+			for i=1,99 do
+				Game.SpellsTxt[i]["SpellPointsNormal"]=spellCostNormal[i]
+				Game.SpellsTxt[i]["SpellPointsExpert"]=spellCostExpert[i]
+				Game.SpellsTxt[i]["SpellPointsMaster"]=spellCostMaster[i] 
+			end
+		end
+	end
+end
+
+
+--[[dark containment black hole
+function events.CalcDamageToMonster(t)
+data=WhoHitMonster()
+	if data.Object and data.Object.Spell==99 then
+		data.Object.TypeIndex=222
+		monsterData=getMonstersInRange(t.Monster.X,t.Monster.Y,t.Monster.Z,100024)
+		blackHole=true
+		HoleX=data.Object.X
+		HoleY=data.Object.Y
+		HoleZ=data.Object.Z
+	end
+end
+
+function events.Tick()
+	if blackHole then
+		for _, i in pairs(monsterData) do
+			Map.Monsters[i].BodyRadius=Map.Monsters[i].BodyRadius/5
+			Map.Monsters[i].BodyHeight=Map.Monsters[i].BodyHeight/5
+			Map.Monsters[i].VelocityX = HoleX-Map.Monsters[i].X	
+			Map.Monsters[i].VelocityY = HoleY-Map.Monsters[i].Y
+			Map.Monsters[i].VelocityZ = HoleZ-Map.Monsters[i].Z
+		end
+	end
+end
+
+--
+radius = 2000
+function events.Tick()
+	if blackHole then
+		local centerX, centerY, centerZ = HoleX, HoleY, HoleZ
+		radius = math.max(radius-2,0)  -- Adjust the radius as desired
+		local angularSpeed = 0.003  -- Adjust the angular speed as desired
+
+		for _, i in pairs(monsterData) do
+			local angle = (Game.Time * angularSpeed) + (i * 0.1)  -- Adjust the angle multiplier as desired
+			local offsetX = radius * math.cos(angle)
+			local offsetY = radius * math.sin(angle)
+			
+			Map.Monsters[i].BodyRadius = Map.Monsters[i].BodyRadius / 5
+			Map.Monsters[i].BodyHeight = Map.Monsters[i].BodyHeight / 5
+			Map.Monsters[i].X = centerX + offsetX
+			Map.Monsters[i].Y = centerY + offsetY
+			Map.Monsters[i].VelocityX = 0
+			Map.Monsters[i].VelocityY = 0
+			Map.Monsters[i].VelocityZ = centerZ - Map.Monsters[i].Z  -- Assuming a circular motion in the X-Y plane
+		end
+	end
+end
+
+]]
+
+
+--spell delay changes
+function events.GameInitialized2()
+--change buffs speed
+	buffList={1,3,4,5,12,14,16,17,23,27,29,30,31,36,38,46,48,50,51,56,59,69,73,75,78,79}
+	for _, buffId in pairs(buffList) do
+		Game.Spells[buffId].DelayExpert=Game.Spells[buffId].DelayExpert/2
+		Game.Spells[buffId].DelayMaster=Game.Spells[buffId].DelayMaster/4
+	end
+	--change offensive spells
+	Game.Spells[4].DelayMaster=35
+	Game.Spells[18].DelayMaster=65
+	Game.Spells[21].DelayExpert=200
+	Game.Spells[21].DelayMaster=150
+	Game.Spells[28].DelayMaster=50
+	Game.Spells[34].DelayMaster=40
+	Game.Spells[34].DelayMaster=20
+	Game.Spells[37].DelayMaster=45
+	Game.Spells[44].DelayNormal=240
+	Game.Spells[44].DelayMaster=220
+	Game.Spells[44].DelayMaster=200
+	Game.Spells[54].DelayExpert=140
+	Game.Spells[54].DelayMaster=130
+	Game.Spells[55].DelayExpert=600
+	Game.Spells[55].DelayMaster=300
+	Game.Spells[80].DelayMaster=10
+	Game.Spells[91].DelayExpert=90
+	Game.Spells[91].DelayMaster=60
+	Game.Spells[93].DelayExpert=100
+	Game.Spells[93].DelayMaster=80
+	Game.Spells[96].DelayMaster=100
+	Game.Spells[99].DelayExpert=200
+	Game.Spells[99].DelayMaster=100
+end
+
+--MASTERY INCREASING SPELL SPEED
+--create spell speed matrix
+function events.GameInitialized2()
+	spellSpeedNormal={}
+	spellSpeedExpert={}
+	spellSpeedMaster={}
+		for i=1,99 do
+		spellSpeedNormal[i] = Game.Spells[i].DelayNormal
+		spellSpeedExpert[i] = Game.Spells[i].DelayExpert
+		spellSpeedMaster[i] = Game.Spells[i].DelayMaster
+		end
+end
+
+function events.Tick()
+	--no haste for necromancer
+	index=Game.CurrentPlayer
+	if index>=0 and index<=3 then
+		if NECROMANCER==true and math.floor(Party[index].Class/3)==2 then return end
+		Mastery=Party[index].Skills[const.Skills.Thievery]%64
+		for i=1,99 do
+			Game.Spells[i].DelayNormal = math.round(spellSpeedNormal[i] / 1.01^Mastery)
+			Game.Spells[i].DelayExpert = math.round(spellSpeedExpert[i] / 1.01^Mastery)
+			Game.Spells[i].DelayMaster = math.round(spellSpeedMaster[i] / 1.01^Mastery)
+		end
+	end
+end
+
+--UPDATED TOOLTIPS
+
+--Store older descriptions
+function events.GameInitialized2()
+desc={}
+	for i=1,99 do
+		desc[i]=Game.SpellsTxt[i].Description
+	end
+end
+
+function events.Tick()
+	i=Game.CurrentPlayer
+	if i>=0 then
+		level=Party[i].LevelBase
+		earthSkill=Party[i].Skills[const.Skills.Earth]
+		es,em=SplitSkill(earthSkill)
+		if em==3 then
+			em=4
+		end
+		mindSkill=Party[i].Skills[const.Skills.Mind]	
+		ms, mm=SplitSkill(mindSkill)
+		if mm==3 then
+			mm=4
+		end
+		lightSkill=Party[i].Skills[const.Skills.Light]
+		ls, lm=SplitSkill(lightSkill)
+		--stone
+		Game.SpellsTxt[42].Description=string.format("%s\nDuration vs same level monster: %s minutes",desc[42], math.round(es/level^0.7*100)*em*2.5/100)
+		Game.SpellsTxt[42].Novice= "Duration 2.5 minutes per point of Skill"
+		Game.SpellsTxt[42].Expert= "Duration 5 minutes per Skill, 2 targets"
+		Game.SpellsTxt[42].Master= "Duration 10 minutes per Skill, 3 targets"
+		--charm
+		Game.SpellsTxt[61].Description=string.format("%s\nDuration vs same level monster: %s minutes",desc[61], math.round(ms/level^0.7*100)*mm*3/100)
+		Game.SpellsTxt[61].Novice= "Duration 3 minutes per point of Skill"
+		Game.SpellsTxt[61].Expert= "Duration 6 minutes per Skill, 2 targets"
+		Game.SpellsTxt[61].Master= "Duration 12 minutes per Skill, 3 targets"
+		--slow
+		Game.SpellsTxt[81].Novice= "Costs 5 and deals 8+1d5 per level of skill"
+		Game.SpellsTxt[81].Expert= "Costs 15 and deals 18+1d12 per level of skill"
+		Game.SpellsTxt[81].Master= "Costs 25 and deals 27+1d18 per level of skill"
+		--paralysis
+		Game.SpellsTxt[86].Description=string.format("%s\nDuration vs same level monster: %s minutes",desc[61], math.round(ls/level^0.7*100)*lm*3/100)
+		Game.SpellsTxt[86].Novice= "Slow Recovery, 2% increased chance per Skill"
+		Game.SpellsTxt[86].Expert= "Fast Recovery, 4% increased chance per Skill"
+		Game.SpellsTxt[86].Master= "Fastest Recovery, 6% increased chance per Skill"
+	end
+end

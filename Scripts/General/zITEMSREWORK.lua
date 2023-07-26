@@ -1,4 +1,4 @@
-if SETTINGS["ItemRework"]==true then
+if SETTINGS["ItemRework"]==true and SETTINGS["255MOD"]~=true then
 function events.GenerateItem(t)
 	--get party average level
 	partyExperience = 0
@@ -85,7 +85,7 @@ function events.ItemGenerated(t)
 		--chance for ancient item, only if bonus 2 is spawned
 		if t.Item.Bonus2~=0 then 
 			ancient=math.random(1,50)
-			if ancient<=t.Strength-3 or Game.Map.Name=="zddb10.blv" then
+			if ancient<=t.Strength-3 or Game.Map.Name=="zddb10.blv" or Game.Map.Name=="zddb09.blv" then
 				t.Item.Charges=math.random(364,560)
 				t.Item.Bonus=math.random(1,14)
 				t.Item.BonusStrength=math.random(26,40)
@@ -132,13 +132,13 @@ function events.ItemGenerated(t)
 			roll=math.random(1,100)
 			if roll<=25 then
 			t.Item.ExtraData=hatpower[t.Strength]+3000
-			else if t.Item.Number>=94 and t.Item.Number<=96 then
-				t.Item.ExtraData=hatpower[t.Strength]+1000
-				else
-				t.Item.ExtraData=hatpower[t.Strength]+2000
+				else if t.Item.Number>=94 and t.Item.Number<=96 then
+					t.Item.ExtraData=hatpower[t.Strength]+1000
+					else
+					t.Item.ExtraData=hatpower[t.Strength]+2000
+					end
 				end
 			end
-		end
 		end
 	end
 end
@@ -151,12 +151,8 @@ function events.CalcStatBonusByItems(t)
 		if it.Charges ~= nil then
 			stat=it.Charges%14
 			bonus=math.ceil(it.Charges/14)
-			if SETTINGS["ReworkedMagicDamageCalculation"]==true then
-				if t.Stat==stat and stat<10 then
-					t.Result = t.Result + bonus
-				end
-			elseif t.Stat==stat then
-					t.Result = t.Result + bonus
+			if t.Stat==stat then
+				t.Result = t.Result + bonus
 			end
 		end
 	end
@@ -205,7 +201,7 @@ upTierDifference=0
 downTierDifference=0
 downDamage=0
 --set goal damage for weapons (end game weapon damage)
-goalDamage=50
+goalDamage=35
 if Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Axe" or Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Sword" then
 	goalDamage=goalDamage*2
 end
@@ -234,7 +230,7 @@ end
 
 --do same for artifacts
 for i=400,405 do
-goalDamage=75
+goalDamage=50
 if Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Axe" or Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Sword" then
 	goalDamage=goalDamage*2
 end
@@ -245,7 +241,7 @@ Game.ItemsTxt[i].Mod2=goalDamage/2
 end
 
 for i=415,420 do
-goalDamage=75
+goalDamage=50
 if Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Axe" or Game.ItemsTxt[i].NotIdentifiedName == "Two-Handed Sword" then
 	goalDamage=goalDamage*2
 end
@@ -358,7 +354,7 @@ function events.CalcDamageToMonster(t)
 			if data.Object.Spell==100 then
 			it=data.Player:GetActiveItem(2)
 			-- calculation
-			if (it.Bonus2 >= 4 and it.Bonus2 <= 15) or it.Bonus2 == 46 and it.ExtraData==0 then
+			if ((it.Bonus2 >= 4 and it.Bonus2 <= 15) or it.Bonus2 == 46) and it.ExtraData==0 then
 			local bonusDamage = enchantbonusdamage[it.Bonus2] or 0
 			t.Result=t.Result*bonusDamage
 			end	
@@ -378,7 +374,7 @@ data=WhoHitMonster()
 	if data.Player then
 		it=data.Player:GetActiveItem(1)
 		if it then
-			if (it.Bonus2 >= 4 and it.Bonus2 <= 15) or it.Bonus2 == 46 and it.ExtraData==0 then
+			if ((it.Bonus2 >= 4 and it.Bonus2 <= 15) or it.Bonus2 == 46) and it.ExtraData==0 then
 				spellbonusdamage[4] = math.random(6, 8)
 				spellbonusdamage[5] = math.random(18, 24)
 				spellbonusdamage[6] = math.random(36, 48)
@@ -408,7 +404,34 @@ end
 
 
 
-
+--[[
+function events.CalcDamageToMonster(t)
+    local data = WhoHitMonster()
+    if data.Player and data.Object ~= nil and data.Object.Spell<100 then
+		
+		it=data.Player:GetActiveItem(0)
+			
+		--generate randoms
+		enchantbonusdamage = {}
+		enchantbonusdamage[4] = math.random(6, 8)
+		enchantbonusdamage[5] = math.random(18, 24)
+		enchantbonusdamage[6] = math.random(36, 48)
+		enchantbonusdamage[7] = math.random(4, 10)
+		enchantbonusdamage[8] = math.random(12, 30)
+		enchantbonusdamage[9] = math.random(24, 60)
+		enchantbonusdamage[10] = math.random(2, 12)
+		enchantbonusdamage[11] = math.random(6, 36)
+		enchantbonusdamage[12] = math.random(12, 72)
+		enchantbonusdamage[46] = math.random(20, 80)
+		-- calculation
+		if (it.Bonus2 >= 4 and it.Bonus2 <= 15) or it.Bonus2 == 46 then
+		bonusDamage2 = enchantbonusdamage[it.Bonus2] or 0
+		t.Damage = t.Damage+bonusDamage2
+		debug.Message(dump(t.Damage))
+		end
+    end	
+end
+--]]
 ---------------------
 --multiple enchant tooltip
 ---------------------
@@ -471,7 +494,11 @@ function events.GameInitialized2()
 	itemDesc = {}
 	enchantAdd = {}
 	enchantAdd2 = {}
-	
+	--FINAL AWARD
+	Game.AwardsTxt[61]="Completed MAW in Nightmare Mode"
+	Game.ItemsTxt[546].Notes="Congratulation, you were able to clear MAW at its highest difficulty!!!"
+	Game.ScrollTxt[546]="Congratulations! To enter the Hall of Fame write me on Discord at Malekith#5670 and send me the save file to verify your run.\nDevs are proud of you" 	
+		
 	for i = 1, 580 do
 	  itemName[i] = Game.ItemsTxt[i].Name
 	end
@@ -485,7 +512,9 @@ function events.GameInitialized2()
 	for i=0, 58 do
 		enchantAdd2[i]=Game.SpcItemsTxt[i].NameAdd
 	end
-
+	--new items	
+	Game.ItemsTxt[580].Name = "Reality Scroll"
+	Game.ItemsTxt[579].Name = "Celestial Dragon Amulet"
 	--fix long tooltips causing crash 
 
 	Game.SpcItemsTxt[40].BonusStat= "Drain target Life and Increased Weapon speed."
@@ -724,41 +753,6 @@ for it in t.Player:EnumActiveItems() do
 		end
 	end
 end
-
-
-
-
-
--- some spare code, just in case
---[[
-function AfterShowItemTooltip()
-  debug.Message(dump(t))
-end]]
---celestial amulet
-function events.DoBadThingToPlayer(t)
-for it in t.Player:EnumActiveItems() do
-		if it.Number == 579 then
-			if t.Thing==16 or t.Thing==14 then
-			t.Allow=false
-				if t.Thing==14 then
-				Game.ShowStatusText(string.format("Celestial Amulet protects %s from death",t.Player.Name))
-				else 
-				Game.ShowStatusText(string.format("Celestial Amulet protects %s from eradication",t.Player.Name))
-				end
-			end
-		end
-	end
-end
-function events.CalcStatBonusByItems(t)
-	if t.Stat >= const.Stats.Might and t.Stat <= const.Stats.Luck then
-		for it in t.Player:EnumActiveItems() do
-			if it.Number == 579 then
-				t.Result = t.Result + 50
-			end
-		end
-	end
-end
-
 
 
 --------------------

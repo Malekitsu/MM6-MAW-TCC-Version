@@ -8,7 +8,7 @@ if ASHIKARI==true then
 -- damage scaling with speed (meant to be like classic Agility stat)
 function events.CalcDamageToMonster(t)
 	local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.WarriorMage or data.Player.Class==const.Class.BattleMage or data.Player.Class==const.Class.Archer) and t.DamageKind==0 then
+	if data and data.Player and (data.Player.Class==const.Class.WarriorMage or data.Player.Class==const.Class.BattleMage or data.Player.Class==const.Class.Archer) and t.DamageKind==0 then
 	m1=data.Player.Skills[const.Skills.Air]
 		if m1>=64 then 
 		m1=m1-64
@@ -114,7 +114,13 @@ end
 ASSASSIN=SETTINGS["ArcherAsAssassin"]
 if ASSASSIN==true then
 
+comboPoint={}
 
+function events.LoadMap()
+	for i=0,3 do
+		comboPoint[i]=0
+	end
+end
 --Energy Spender, when energy is 30 or more and adds a combo point up to 5
 function events.CalcDamageToMonster(t)		
 	local data = WhoHitMonster()
@@ -135,10 +141,11 @@ function events.CalcDamageToMonster(t)
 	end
 	t.Result=t.Result*1.2+bonusDamage
 	data.Player.SP=data.Player.SP-30
-		if comboPoint==nil then
-		comboPoint=0
-			else if comboPoint<5 then
-			comboPoint=comboPoint+1
+	i=data.Player:GetIndex()
+		if comboPoint[i]==nil then
+		comboPoint[i]=0
+			else if comboPoint[i]<5 then
+			comboPoint[i]=comboPoint[i]+1
 			end
 		end
 	end
@@ -159,8 +166,7 @@ function events.CalcSpellDamage(t)
 --get mastery
 
 	local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.WarriorMage or data.Player.Class==const.Class.BattleMage or data.Player.Class==const.Class.Archer) then	
-	
+	if data.Player and (data.Player.Class==const.Class.WarriorMage or data.Player.Class==const.Class.BattleMage or data.Player.Class==const.Class.Archer) then		
 	mastery=data.Player.Skills[const.Skills.Thievery]
 	if mastery>=64 then 
 	mastery=mastery-64
@@ -170,11 +176,11 @@ function events.CalcSpellDamage(t)
 	mastery=mastery-64
 	rank=3
 	end
-	
-    if comboPoint==nil then
-		comboPoint=0
+	i=data.Player:GetIndex()
+    if comboPoint[i]==nil then
+		comboPoint[i]=0
 	end
-	if comboPoint==0 then
+	if comboPoint[i]==0 then
 		if data.Player.Class==const.Class.Archer then 			
 		t.Result=t.Result*0.5
 			else if data.Player.Class==const.Class.BattleMage then
@@ -184,14 +190,11 @@ function events.CalcSpellDamage(t)
 				end
 			end
 		end			
-	elseif comboPoint<5 then
-        t.Result=t.Result*(1+0.2*comboPoint+mastery*comboPoint)
-		comboPoint=0		
-	elseif comboPoint==5 then
-            t.Result=t.Result*(2.5+mastery*0.05)
-			comboPoint=0
+	elseif comboPoint[i]<=5 then
+        t.Result=t.Result*(1+0.2*comboPoint[i]+mastery*comboPoint[i]*0.01)
+		comboPoint[i]=0		
 	end
-		comboPoint=0
+		comboPoint[i]=0
     end
 
 	
@@ -323,7 +326,7 @@ end
 --when insane deals 50% extra damage and attack will consume 10 sp, when no SP insane will be removed
 function events.CalcDamageToMonster(t)	
 local data = WhoHitMonster()	
-	if data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==1 and t.DamageKind==0 and data.Object==nil then
+	if data and data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==1 and t.DamageKind==0 and data.Object==nil then
 		t.Result=t.Result*1.5
 		data.Player.HP=data.Player.HP+t.Result*0.1
 		data.Player.SP=data.Player.SP-15
@@ -336,7 +339,7 @@ end
 --when 100 or above SP you have 50% to get insane
 function events.CalcDamageToMonster(t)	
 local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==0 and data.Player.SP>=100 and t.DamageKind==0 and data.Object==nil then
+	if data and data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==0 and data.Player.SP>=100 and t.DamageKind==0 and data.Object==nil then
 		if math.random(1,100)>50 then
 			data.Player.Insane=1
 	--get mastery info		
@@ -361,7 +364,7 @@ end
 --adds 15 SP when attacking and not insane and reset bonus speed
 function events.CalcDamageToMonster(t)	
 local data = WhoHitMonster()	
-	if data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==0 and t.DamageKind==0 and data.Object==nil then
+	if data and data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and data.Player.Insane==0 and t.DamageKind==0 and data.Object==nil then
 		if data.Player.SP<0 then
 			data.Player.SP=0
 		end
@@ -469,7 +472,7 @@ if BLOODKNIGHT==true then
 --when above 33% health every attack will cost 8% of hp but will deal 1% more damage for each 1% of missing health
 function events.CalcDamageToMonster(t)
 	local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.Champion or data.Player.Class==const.Class.Cavalier or data.Player.Class==const.Class.Knight) and t.DamageKind==0 and data.Object==nil then
+	if data and data.Player and (data.Player.Class==const.Class.Champion or data.Player.Class==const.Class.Cavalier or data.Player.Class==const.Class.Knight) and t.DamageKind==0 and data.Object==nil then
 	
 	--Get Mastery
 	mastery=data.Player.Skills[const.Skills.Thievery]
@@ -509,7 +512,7 @@ function events.CalcDamageToMonster(t)
 	local data = WhoHitMonster()
 		currentHP=data.Player.HP
 		vampiricTreshold=data.Player:GetFullHP()*0.40
-			if data.Player and (data.Player.Class==const.Class.Champion or data.Player.Class==const.Class.Cavalier or data.Player.Class==const.Class.Knight) and currentHP<vampiricTreshold and t.DamageKind==0 and data.Object==nil then
+			if data and data.Player and (data.Player.Class==const.Class.Champion or data.Player.Class==const.Class.Cavalier or data.Player.Class==const.Class.Knight) and currentHP<vampiricTreshold and t.DamageKind==0 and data.Object==nil then
 			vampiricAttacks=2
 			end
 		if data.Player and (data.Player.Class==const.Class.Champion or data.Player.Class==const.Class.Cavalier or data.Player.Class==const.Class.Knight) and vampiricAttacks~=nil and vampiricAttacks>0 and t.DamageKind==0 and data.Object==nil then
@@ -590,6 +593,9 @@ if FHPx > from then
 chance=mastery*3+5
 			if math.random(1,200)<chance then
 					heal=t.Result-t.Player.LevelBase*0.5-t.Player.HP
+					if SETTINGS["TRUENIGHTMARE"]==true then
+						heal=heal*(1-diffMod)
+					end
 					evt[t.PlayerIndex].Add("HP",heal)
 			Game.ShowStatusText("Forces of Nature saves you from lethal damage")
 	end
@@ -652,39 +658,7 @@ function events.CalcSpellDamage(t)
 		t.Result=t.Result+(spellCost^0.7*masteryS)
 	end	
 end
---spell cost increase dictionary
-function events.GameInitialized2()
-	spellCostNormal={}
-	spellCostExpert={}
-	spellCostMaster={}
-	for i=1,99 do
-	spellCostNormal[i] = Game.SpellsTxt[i]["SpellPointsNormal"]
-	spellCostExpert[i] = Game.SpellsTxt[i]["SpellPointsExpert"]
-	spellCostMaster[i] = Game.SpellsTxt[i]["SpellPointsMaster"]
-	end
-end
 
---adjust mana cost
-function events.Tick()
-	index=Game.CurrentPlayer
-	if index>=0 and index<=3 then
-		if NECROMANCER==true and math.floor(Party[index].Class/3)==2 then 
-			mastery=Party[index].Skills[const.Skills.Thievery]
-			masteryS,MasteryM=SplitSkill(mastery)
-			for i=1,99 do
-				Game.SpellsTxt[i]["SpellPointsNormal"] = math.min(math.round(spellCostNormal[i] * (1+0.05*masteryS)),255)
-				Game.SpellsTxt[i]["SpellPointsExpert"] = math.min(math.round(spellCostExpert[i] * (1+0.05*masteryS)),255)
-				Game.SpellsTxt[i]["SpellPointsMaster"] = math.min(math.round(spellCostMaster[i] * (1+0.05*masteryS)),255)
-			end
-		else
-			for i=1,99 do
-				Game.SpellsTxt[i]["SpellPointsMaster"]=spellCostNormal[i]
-				Game.SpellsTxt[i]["SpellPointsExpert"]=spellCostExpert[i]
-				Game.SpellsTxt[i]["SpellPointsMaster"]=spellCostMaster[i] 
-			end
-		end
-	end
-end
 
 --leech 3% of damage and replenish 3% mana if spell kills an enemy
 function events.CalcSpellDamage(t)
@@ -979,14 +953,12 @@ function events.CalcDamageToMonster(t)
 		item=data.Player:GetActiveItem(0)
 	 end
 	 if item~=nil then
-		if data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and ((item.Number >= 1 and item.Number <= 14) or (item.Number ==403 or item.Number >= 415)) then
+		if data and data.Player and (data.Player.Class==const.Class.Hero or data.Player.Class==const.Class.Crusader or data.Player.Class==const.Class.Paladin) and ((item.Number >= 1 and item.Number <= 14) or (item.Number ==403 or item.Number == 415)) then
 			t.Result=0
 			Message("Seraphim aren't able to dual wield")
 		end
 	end
 end
-
-
 
 function events.GameInitialized2()
 Game.ClassKinds.StartingSkills[3][const.Skills.Plate] = 3
@@ -1047,7 +1019,7 @@ Game.ClassNames[const.Class.ArchMage]="Gloom"
 	Game.ClassKinds.StartingSkills[2][const.Skills.Dark] = 1
 	Game.ClassKinds.StartingSkills[2][const.Skills.Meditation] = 0
 	Game.ClassKinds.StartingSkills[2][const.Skills.Perception] = 2
-
+	Game.ClassKinds.StartingSkills[2][const.Skills.Thievery] = 1
     Game.Classes.HPFactor[const.Class.Sorcerer] = 1
 	Game.Classes.SPFactor[const.Class.Sorcerer] = 1
     Game.Classes.HPFactor[const.Class.Wizard] = 1
@@ -1308,7 +1280,7 @@ end
 
 function events.CalcDamageToMonster(t)	
 local data = WhoHitMonster()
-	if data.Player and (data.Player.Class==const.Class.ArchDruid or data.Player.Class==const.Class.GreatDruid or data.Player.Class==const.Class.Druid) and t.DamageKind==0 and data.Object==nil then	
+	if data and data.Player and (data.Player.Class==const.Class.ArchDruid or data.Player.Class==const.Class.GreatDruid or data.Player.Class==const.Class.Druid) and t.DamageKind==0 and data.Object==nil then	
 	mastery=data.Player.Skills[const.Skills.Thievery]
 	if mastery>=64 then 
 	mastery=mastery-64

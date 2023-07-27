@@ -2960,28 +2960,31 @@ if SETTINGS["StatsRework"]==true then
 			if s == 0 then return end
 			-- returns item struct, not item index
 			local main, off = data.Player:GetActiveItem(const.ItemSlot.MainHand, false), data.Player:GetActiveItem(const.ItemSlot.ExtraHand, false)
-			-- damage multiplier
+-- damage multiplier
 			local daggerAmount = (main and main:T().Skill == const.Skills.Dagger and 1 or 0) + (off and off:T().Skill == const.Skills.Dagger and 1 or 0)
 			if daggerAmount > 0 then
 				-- (5 + skill * 1) / 100 is equal to 5% + 1% per skill
 				chance = 5 + s 
 			end
 			critChance=critChance+chance*10
-			roll=math.random(1, 1000)
-			if roll <= critChance then
+			critRoll=math.random(1, 1000)
+			if critRoll <= critChance then
 				t.Result=t.Result*(1.5+critDamage)
 				crit2=true
 			end
-			if comboPoint==nil then
-				comboPoint=0
+			i=data.Player:GetIndex()
+			if SETTINGS["ArcherAsAssassin"]==true then
+				if comboPoint[i]==nil then
+					comboPoint[i]=0
+				end
 			end
 			if crit or crit2 then
 				if (data.Player.Class==12 or data.Player.Class==13 or data.Player.Class==14) and SETTINGS["ArcherAsAssassin"]==true then
-					ComboCritStrings = {attack = string.format("%s (%s CP)",CritStrings.attack,math.min(comboPoint+1,5)),kill = string.format("%s (%s CP)",CritStrings.kill,math.min(comboPoint+1,5))} 
+					ComboCritStrings = {attack = string.format("%s (%s CP)",CritStrings.attack,math.min(comboPoint[i]+1,5)),kill = string.format("%s (%s CP)",CritStrings.kill,math.min(comboPoint[i]+1,5))} 
 					comboCrit=true
 				end
 			elseif (data.Player.Class==12 or data.Player.Class==13 or data.Player.Class==14) and SETTINGS["ArcherAsAssassin"]==true then
-				ComboStrings = {attack = string.format("%s (%s CP)",NormalStrings.attack,math.min(comboPoint+1,5)),kill = string.format("%s (%s CP)",NormalStrings.kill,math.min(comboPoint+1,5))} 
+				ComboStrings = {attack = string.format("%s (%s CP)",NormalStrings.attack,math.min(comboPoint[i]+1,5)),kill = string.format("%s (%s CP)",NormalStrings.kill,math.min(comboPoint[i]+1,5))} 
 				combo=true
 			end
 		end
